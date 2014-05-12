@@ -615,6 +615,10 @@ And voila, our result set.
 ## Addtional Resources
 
 * [PostgreSQL Documentation](http://www.postgresql.org/docs/9.2/interactive/index.html)
+* [SQL for Data Science](http://bensresearch.com/downloads/SQL.pdf)
+
+**Database theory resources**
+
 * [ACID](http://en.wikipedia.org/wiki/ACID)
 * [CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem)
 * [Relational Algebra](http://en.wikipedia.org/wiki/Relational_algebra)
