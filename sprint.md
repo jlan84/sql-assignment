@@ -134,6 +134,9 @@ You might wonder what each of these campaign ids mean. The campaign ids from dif
 Pinterest, Facebook, Twitter, and Reddit.
 
 
+
+#Where clause/ filtering
+
 Next, we want to filter out and select only the users that come from Facebook.
 
 The WHERE clause will be helpful here.
@@ -147,12 +150,18 @@ So what have we accomplished here?
 
 We now know how to select different columns from different tables, explore the database, and filter out by certain values.
 
+
+
+#Aggregation functions: counting
+
 Let's try some simple aggregation functions now.
 
 
 Count the number of users that come from facebook.
 
 
+
+#Intervals and Ranges
 
 Moving on from the user's table a bit, let's try some basic range functions.
 
@@ -168,6 +177,8 @@ Create a group by meal type with an average price per meal type.
 
 
 
+#Intervals, Ranges, and sorting
+
 Now we are going to get creative. Using the previous query, let's answer the question on what meal type
 
 can be the most profitable. Add a sort descending on the previous query. This will allow us to understand
@@ -175,6 +186,9 @@ can be the most profitable. Add a sort descending on the previous query. This wi
 how to rank by average meal price.
 
 Next, let's experiment with ranges and intervals. Again get the average price per meal type.
+
+
+#Aggregation, sorting
 
 From there, count the number of meals per type that are above the average price.
 
@@ -184,6 +198,8 @@ Now do the same thing for anything less than the mean, and do a count on all ite
 
 price per meal type.
 
+
+#Joins
 
 
 Now we are ready to do operations on multiple tables. If you remember joins, joins allow us to perform aggregate operations
@@ -202,6 +218,9 @@ First, filter the event type by bought.
 Next, compute a join on the users and meal tables.
 
 Now combine those queries to answer the question
+
+
+#Joins and aggregations
 
 
 Now let's start doing some aggregate analysis. Take the time and answer the question,
