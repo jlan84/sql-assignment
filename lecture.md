@@ -1,4 +1,4 @@
-# SQL
+# Databases and SQL
 
 ## Data Persistence
 
