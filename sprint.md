@@ -229,3 +229,6 @@ Now let's start doing some aggregate analysis. Take the time and answer the ques
 
 This will be composed of a multi table join, ranking by count of a column,  and then grouping by column value types.
 
+If you get done with all of this, you can start with sub queries:
+
+http://sqlzoo.net/wiki/SELECT_within_SELECT_Tutorial
