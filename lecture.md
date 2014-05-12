@@ -77,7 +77,7 @@ Here's an example of what this users table looks like:
 ... | 
 ```
 
-### Modeling Relations in RDBMS
+## Modeling Relations in RDBMS
 
 Part of the power of relational databases are their ability to model relations
 in data. The way they do so is through the use of **foreign keys**.
@@ -106,6 +106,158 @@ Here we specify not only that the `visits` table has a column called `user_id`,
 but that the column references the `id` column in the `users` table. PostgreSQL
 will treat this as a constraint and ensure that new visits have a `user_id`
 value that references an actual user in the database.
+
+### Types of Relationships
+
+#### One-to-one
+
+For a one-to-one relationship, place the foreign key on either side of the
+relationship. 
+
+**Example: User and Subscription**
+
+```
+---subscriptions
+user_id INTEGER
+```
+
+To find the user for a particular subscription:
+
+```sql
+SELECT *
+FROM users
+WHERE id=?
+LIMIT 1 
+```
+
+To find the subscription for a user:
+
+```sql
+SELECT *
+FROM subscriptions
+WHERE user_id=?
+LIMIT 1
+```
+
+#### One-to-many and many-to-one
+
+For a one-to-many/many-to-one relationship (they are inverses of each other),
+place the foreign key on the many side of the relationship.
+
+**Example: User and Posts**
+
+```
+---posts
+user_id INTEGER REFERENCES users(id)
+```
+
+To find the posts for a user:
+
+```sql
+SELECT *
+FROM posts
+WHERE user_id=?
+```
+
+To find the user for a post:
+
+```sql
+SELECT *
+FROM users
+WHERE id=?
+LIMIT 1
+```
+
+#### Many-to-many
+
+For a many-to-many relationship, create a table that contains two foreign keys,
+one to each side of the relationship. This intermediate table is often referred
+to as a **JOIN table**.
+
+**Example 1: Posts and Tags**
+
+```
+---post_tags
+post_id INTEGER REFERENCES posts(id)
+tag_id INTEGER REFERENCES tags(id)
+```
+
+To find the tags for a post:
+
+```sql
+SELECT tags.*
+FROM tags
+JOIN post_tags
+  ON post_tags.tag_id = tags.id
+WHERE post_tags.post_id=?
+```
+
+To find the posts for a tag:
+
+```sql
+SELECT posts.*
+FROM posts
+JOIN post_tags
+  ON post_tags.post_id = posts.id
+WHERE post_tags.tag_id=?
+```
+
+**Example 2: Friendships**
+
+Let's assume friendships are one-sided so that if Alice is Bob's friend, and Bob
+is Alice's friend, then there are two entries in the friendships table for the
+double-sided friendship.
+
+```
+---friendships
+in_friend_id INTEGER REFERENCES users(id)
+out_friend_id INTEGER REFERENCES users(id)
+```
+
+To find all of a user's friends:
+
+```sql
+SELECT users.*
+FROM users
+JOIN friendships
+  ON friendships.out_friend_id=users.id
+WHERE friendships.in_friend_id = ?
+```
+
+To find all the users who have friended a user:
+
+```sql
+SELECT users.*
+FROM users
+JOIN friendships
+  ON friendships.in_friend_id = users.id
+WHERE friendships.out_friend_id = ?
+```
+
+## Schema Normalization
+
+When designing a database schema (the tables and columns the database will
+contain), we aim to minimize redundancy. This most importantly comes into play
+with relations between data. As you saw above, when you want to relate data to
+each other, use a simple foreign key - that's the smallest piece of information
+that you can keep about another entry.
+
+As an example, each post has an author, which is an entry in the `users` table.
+In a fully normalized schema, the post entry would have a `user_id` which would
+relate the post to a user. A denormalized way of doing this would be to have a
+column in the `posts` table called `author_name`, which would duplicate the
+`name` column in the `users` table. 
+
+Normalization is largely about reducing redundancy. The cost is that some
+queries will take longer to run because you will have to look up additional
+information in other tables. The benefit is simplicity and a system that is
+easier to understand and use. Always start with a fully normalized schema and
+then when performance becomes an issue, you can consider selectively
+denormalizing.
+
+You can learn more about database normalization from [Wikipedia][wiki-normal].
+
+[wiki-normal]: http://en.wikipedia.org/wiki/Database_normalization
 
 ## SQL
 
@@ -428,50 +580,43 @@ And voila, our result set.
   ... | 
 
 ```
+## Keyword Cheatsheet
 
+* Return values
+  * SELECT
+  * DISTINCT
+* Tables and rows
+  * FROM
+  * JOIN
+    * INNER
+    * LEFT, RIGHT
+    * FULL
+* Filtering
+  * WHERE
+  * =, !=, >, <, >=, <=
+  * AND, OR
+  * IN, NOT IN
+  * LIKE
+  * IS NULL, IS NOT NULL
+  * LIMIT
+  * BETWEEN
+* Aggregating
+  * GROUP BY
+  * COUNT
+  * MAX, MIN
+  * SUM
+  * AVG
+  * HAVING
+* Ordering
+  * ORDER BY
+* Aliasing
+  * AS
 
 ## Addtional Resources
 
-* Resources
-  * Postgres docs
-  * ACID
-  * CAP theorem
-  * SQL cheatsheet
-*Note: Set theory underpins much of RDBMS and SQL. It's not necessary to know
-anything about set theory to effectively use SQL but for those of you with the
-inclination, it may be interesting to look further into the subject.*
-
-
-* SQL - Structured Query Language
-  * The structure of a query
-    * Return values
-      * SELECT
-      * DISTINCT
-    * Tables and rows
-      * FROM
-      * JOIN
-        * INNER
-        * LEFT, RIGHT
-        * FULL
-    * Filtering
-      * WHERE
-      * =, !=, >, <, >=, <=
-      * AND, OR
-      * IN, NOT IN
-      * LIKE
-      * IS NULL, IS NOT NULL
-      * LIMIT
-      * BETWEEN
-    * Aggregating
-      * GROUP BY
-      * COUNT
-      * MAX, MIN
-      * SUM
-      * AVG
-      * HAVING
-    * Ordering
-      * ORDER BY
-    * Aliasing
-      * AS
-
+* [PostgreSQL Documentation](http://www.postgresql.org/docs/9.2/interactive/index.html)
+* [ACID](http://en.wikipedia.org/wiki/ACID)
+* [CAP Theorem](http://en.wikipedia.org/wiki/CAP_theorem)
+* [Relational Algebra](http://en.wikipedia.org/wiki/Relational_algebra)
+* [Set Theory](http://en.wikipedia.org/wiki/Set_theory)
 
