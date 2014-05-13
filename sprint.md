@@ -54,7 +54,7 @@ First going in to the database, the [docs](http://www.postgresql.org/docs/9.3/in
 
 Open up a terminal and type:
 
-                psql
+`psql`
 
 
 Now we are in a command line client. This is how we will explore the database to gain an understanding of what data we are playing with.
@@ -66,18 +66,18 @@ at a time. Now let's list the available databases.
 
 In your command line client type:
 
-             \l
+`\l`
 
 You should see something like:
 
-                                          List of databases
-                Name    |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges
-            -----------+----------+----------+-------------+-------------+-----------------------
-                 postgres  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
-                 template0 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
-                           |          |          |             |             | postgres=CTc/postgres
-                  template1 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
-                |          |          |             |             | postgres=CTc/postgres
+                                    List of databases
+          Name    |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges
+      -----------+----------+----------+-------------+-------------+-----------------------
+           postgres  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+           template0 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                     |          |          |             |             | postgres=CTc/postgres
+            template1 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+          |          |          |             |             | postgres=CTc/postgres
 
 
 
@@ -88,7 +88,8 @@ Let's play around with some of the databases other functions now. Let's say we w
 
 
 Now type:
-             \h
+             
+`\h`
 
 This gives us a help prompt with a list of available commands. Don't worry about what all these mean right now.
 
@@ -97,14 +98,14 @@ Now we are going to exit the postgres command line interface (cli):
 
 Type:
 
-            \q
+`\q`
 
 
 Now exit the terminal. Based on the list of databases we just saw, we want the readychef database.
 
 Now type:
 
-          psql readychef
+`psql readychef`
 
 
 This will connect you to the readychef database. From here, we will want to explore the schema of the database.
@@ -119,7 +120,7 @@ As of right now, we don't know much about the database. First, let's display the
 
 Type:
 
-    \d
+`\d`
 
 
 This will give us a list of tables to choose from.
@@ -127,7 +128,7 @@ This will give us a list of tables to choose from.
 
 One thing we might want to do is see all of the attributes of the table. To do this, pick a table and type:
 
-        \d table
+`\d table`
 
 where table is the table you want to describe.
 
@@ -156,12 +157,12 @@ Now that we have seen how to select data from tables. Let's do something practic
 From here, we are going to start answering basic questions about the data.
 To start let's pick a table to play with. To remind ourselves of the available tables, type:
 
-               \d
+`\d`
 
 This command will then be:
 
 
-               \d "tablename"
+`\d "tablename"`
 
 The quotes for table names and other database entities are required.
 
@@ -220,15 +221,15 @@ If you get syntax errors, a tip here is to put the literals in single quotes.
 Your output should be something like this:
 
 
-               id  | Campaign_ID
-               ------+-------------
-                     51 | FB
-                     52 | FB
-                     56 | FB
-                     61 | FB
-                     69 | FB
-                     70 | FB
-                     73 | FB
+   id  | Campaign_ID
+   ------+-------------
+         51 | FB
+         52 | FB
+         56 | FB
+         61 | FB
+         69 | FB
+         70 | FB
+         73 | FB
 
 
 So what have we accomplished here?
