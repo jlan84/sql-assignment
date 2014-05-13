@@ -206,12 +206,12 @@ Your output should look something like this:
 Where Clauses / Filtering
 ========================================
 
-Now that we have the lay of the land, we're interested in the subset of users that came from Facebook (FB).  Write a new `SELECT` statement that returns all rows where `Campaign_ID` is equal to `FB`. If you're unfamiliar with SQL syntax, the [WHERE](http://www.postgresqltutorial.com/postgresql-where/) clause can be used to add a conditional to `SELECT` statements. This has the effect of only returning rows where the conditional evaluates to `TRUE`. 
+Now that we have the lay of the land, we're interested in the subset of users that came from Facebook (FB).   If you're unfamiliar with SQL syntax, the [WHERE](http://www.postgresqltutorial.com/postgresql-where/) clause can be used to add a conditional to `SELECT` statements. This has the effect of only returning rows where the conditional evaluates to `TRUE`. 
 
 _If you get syntax errors, a tip here is to put the literals in single quotes._
 
-
-1. Now we want to construct a table consisting of the user's `id` and associated `Campaign_ID`, filtered by FB. Modify your `SELECT` statement to return only the `id` and the `Campaign_ID` columns from users that came from FB.
+1. Using the `WHERE` clause, write a new `SELECT` statement that returns all rows where `Campaign_ID` is equal to `FB`.
+1. But what if we only care about their user `ID`s? Modify your `SELECT` statement to return only the `id` and the `Campaign_ID` columns from users that came from FB.
 
 Your output should be something like this:
 
