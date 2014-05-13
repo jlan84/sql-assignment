@@ -470,7 +470,7 @@ We are going to use this to create a little mini report of meals that are greate
 
 
 
-From there, count the number of meals per type that are above the average price.
+1. From there, count the number of meals per type that are above the average price.
 This can allow us to identify meals that might be slightly more profitable.
 Now do the same thing for anything less than the mean, and do a count on all items that are below the mean
 price per meal type.
