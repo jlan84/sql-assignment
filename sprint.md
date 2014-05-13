@@ -211,7 +211,7 @@ Now that we have the lay of the land, we're interested in the subset of users th
 _If you get syntax errors, a tip here is to put the literals in single quotes._
 
 
-1. Now select the user id and the campaign id from the users table.
+1. Now we want to construct a table consisting of the user's `id` and associated `Campaign_ID`, filtered by FB. Modify your `SELECT` statement to return only the `id` and the `Campaign_ID` columns from users that came from FB.
 
 Your output should be something like this:
 
@@ -234,13 +234,21 @@ and filter out by certain values.
 
 
 
-Aggregation functions: counting
+Aggregation Functions: Counting
 =======================================
 
 Let's try some simple aggregation functions now.
 
 
-1. Count the number of users that come from facebook.
+1. Now, modify your `SELECT` statement to [COUNT](http://www.postgresql.org/docs/8.2/static/functions-aggregate.html) the total number of users that come from FB. Unlike `WHERE` clauses, aggregation functions are specified in the `SELECT` statement itself.
+
+For example, if I wanted to know the total number of users in my database, I would run the following query:
+
+```
+SELECT COUNT(*) 
+FROM Users
+```
+
 
 Your output should look something like:
 
