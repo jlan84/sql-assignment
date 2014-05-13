@@ -211,7 +211,7 @@ Now that we have the lay of the land, we're interested in the subset of users th
 _If you get syntax errors, a tip here is to put the literals in single quotes._
 
 1. Using the `WHERE` clause, write a new `SELECT` statement that returns all rows where `Campaign_ID` is equal to `FB`.
-1. But what if we only care about their user `ID`s? Modify your `SELECT` statement to return only the `id` and the `Campaign_ID` columns from users that came from FB.
+2. But what if we only care about their user `ID`s? Modify your `SELECT` statement to return only the `id` and the `Campaign_ID` columns from users that came from FB.
 
 Your output should be something like this:
 
@@ -259,6 +259,8 @@ Your output should look something like:
  (1 row)
 ```
 
+2. Now, calculate the percentage of users coming from each service. Just manually divide by the count. Note that this is a different number from up top. You want the total number of users period.
+
 
 Aggregation functions: AVG
 ================================
@@ -266,7 +268,7 @@ Aggregation functions: AVG
 Moving on from the user's table a bit, let's try the [avg](http://www.postgresql.org/docs/9.1/static/functions-aggregate.html) function.
 The meals table has prices from which we can do some easy statistical calculations.
 
-1. Let's try to figure out the mean price of a given meal. Select only the price column
+1. Let's try to figure out the mean price of a given meal. Write a `SELECT` statement that returns only the price column
    and calculate the mean or average price for a meal.
 
 
@@ -280,7 +282,7 @@ Your output should look something like this:
 ```
 
 
-Now do this for each meal type.
+2. Now do this for each meal type.
 
 Create a group by meal type with an average price per meal type.
 
@@ -307,7 +309,7 @@ Now we are going to get creative.
 
 1. Using the previous query, let's answer the question on what meal type
    can be the most profitable. Add a sort descending on the previous query. This will allow us to understand
-   how to rank by average meal price.
+   how to rank by average meal price. One thing to understand is [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases)
 
 
 Your output should look like:
@@ -326,7 +328,7 @@ Your output should look like:
 ```
 
 
-Next, let's experiment with ranges and intervals. Again get the average price per meal type and only get the food type with a price than or equal to 10.
+2. Next, let's experiment with ranges and intervals. Again get the average price per meal type and only get the food type with a price than or equal to 10. (Grab food items with a price >= 10 only then average)
 
 ```
     Type    |      avg_price
@@ -355,8 +357,8 @@ how each one works on different tables, and how to structure the query so we onl
 
 
 
-  1. Let's start by answering the question, "How many users bought a meal?"
-     We will need to perform joins on the Event,Meal, and User tables.
+  1. Let's start by answering the question, "How many meals did each user buy"
+     We will need to perform joins on the Event,Meal  tables.
 
    2. First, [filter](http://www.techonthenet.com/sql/where.php) the event type by bought.
 
@@ -369,26 +371,26 @@ Now combine those queries to answer the question
  ------+-------
   1548 |     1
    106 |     4
-   1513 |     1
-   2125 |     1
+  1513 |     1
+  2125 |     1
    276 |     2
    606 |     2
-   1439 |     2
-   1728 |     2
-   2285 |     2
-   1676 |     1
+  1439 |     2
+  1728 |     2
+  2285 |     2
+  1676 |     1
    807 |     1
-   1231 |     2
+  1231 |     2
    151 |     1
-   1692 |     1
+  1692 |     1
    253 |     2
    852 |     1
    437 |     2
-   4875 |     1
+  4875 |     1
    549 |     3
    268 |     1
    310 |     3
-   2055 |     1
+  2055 |     1
    etc.
 ```
 
@@ -446,16 +448,11 @@ An alias renames a column using the as clause. This also allows us to create tem
 
 We are going to use this to create a little mini report of meals that are greater than the average price for each category.
 
+1. Identify items above the average price for the column.
 
-
-1. From there, count the number of meals per type that are above the average price.
-This can allow us to identify meals that might be slightly more profitable.
-Now do the same thing for anything less than the mean, and do a count on all items that are below the mean
-price per meal type.
-
-
+   
 Your output should look like:
-
+```
               Type    | price
             ------------+-------
              french     |    12
@@ -521,6 +518,15 @@ Your output should look like:
              french     |    10
              vietnamese |    14
             --More--
+```
+ 
+
+2. From there, count the number of meals per type that are above the average price.
+This can allow us to identify meals that might be slightly more profitable.
+
+3. Now do the same thing for anything less than the mean, and do a count on all items that are below the mean
+price per meal type.
+
 
 
 
@@ -539,7 +545,7 @@ Your output should look like:
                 (7 rows)
 
 
-
+3. Now calculate the columnwise percentage of users from each service. You will need [this](http://stackoverflow.com/questions/6207224/calculcating-percentages-with-group-by-query).
 
 
 Extra Tutorial:
