@@ -145,9 +145,7 @@ simple idea of CRUD (Create,Read,Update,Delete). As a data scientist,
 your primary role will be the Read part to do some analysis. In this exercise,
 we are going to focus on the select statement.
 
-1. Run a select statement on each table. Limit the number of rows to 10.
-
-See [here](http://www.postgresqltutorial.com/postgresql-select/)
+1. Run a [SELECT](http://www.postgresqltutorial.com/postgresql-select/) statement on each table. Limit the number of rows to 10.
 
 
 Select specific attributes
@@ -171,66 +169,63 @@ Now, let's select specific attributes of the Users table. We will want to answer
 
 1. What social networks do users come from?
 
+Write a `SELECT` statememnt that returns only the `Campaign_ID` column from a given table. This will contain the titles of the different social networks.
+
+The campaign ids returned are from different social networks :
+
+Pinterest=PI, Facebook=FB, Twitter=TW, and Reddit=RE.
 
 Your output should look something like this:
 
-     Campaign_ID
-    -------------
-      RE
-      FB
-      FB
-      RE
-      TW
-      TW
-      FB
-      RE
-      TW
-      RE
-      RE
-      FB
-      RE
-      PI
-      PI
-      PI
-      PI
-      PI
-      RE
-      FB
-      FB
+```
+  Campaign_ID
+ -------------
+   RE
+   FB
+   FB
+   RE
+   TW
+   TW
+   FB
+   RE
+   TW
+   RE
+   RE
+   FB
+   RE
+   PI
+   PI
+   PI
+   PI
+   PI
+   RE
+   FB
+   FB
+```
 
-
-Select only the Campaign_ID column. This will contain the titles of the different social networks.
-
-You might wonder what each of these campaign ids mean. The campaign ids from different social networks include:
-
-Pinterest, Facebook, Twitter, and Reddit.
-
-
-
-Where clause/ filtering
+Where Clauses / Filtering
 ========================================
 
-Next, we want to filter out and select only the users that come from Facebook.
+Now that we have the lay of the land, we're interested in the subset of users that came from Facebook (FB).  Write a new `SELECT` statement that returns all rows where `Campaign_ID` is equal to `FB`. If you're unfamiliar with SQL syntax, the [WHERE](http://www.postgresqltutorial.com/postgresql-where/) clause can be used to add a conditional to `SELECT` statements. This has the effect of only returning rows where the conditional evaluates to `TRUE`. 
 
-The [WHERE](http://www.postgresqltutorial.com/postgresql-where/) clause will be helpful here.
-If you get syntax errors, a tip here is to put the literals in single quotes.
+_If you get syntax errors, a tip here is to put the literals in single quotes._
 
 
 1. Now select the user id and the campaign id from the users table.
 
 Your output should be something like this:
 
-
-   id  | Campaign_ID
-   ------+-------------
-         51 | FB
-         52 | FB
-         56 | FB
-         61 | FB
-         69 | FB
-         70 | FB
-         73 | FB
-
+```
+id  | Campaign_ID
+------+-------------
+      51 | FB
+      52 | FB
+      56 | FB 
+      61 | FB
+      69 | FB
+      70 | FB
+      73 | FB
+```
 
 So what have we accomplished here?
 
@@ -249,11 +244,12 @@ Let's try some simple aggregation functions now.
 
 Your output should look something like:
 
-           count
-          -------
-            1265
-          (1 row)
-
+```
+  count
+ -------
+   1265
+ (1 row)
+```
 
 
 Aggregation functions: AVG
@@ -268,11 +264,12 @@ The meals table has prices from which we can do some easy statistical calculatio
 
 Your output should look something like this:
 
-                 avg
-         ---------------------
-           10.0360814351945172
-               (1 row)
-
+```
+           avg
+   ---------------------
+     10.0360814351945172
+         (1 row)
+```
 
 
 Now do this for each meal type.
@@ -282,15 +279,17 @@ Create a group by meal type with an average price per meal type.
 
 Your output should look like this:
 
-                        Type    |         avg
-               ------------+---------------------
-                    mexican    | 10.0901525658807212
-                    french     |  9.9719764011799410
-                    japanese   |  9.9532163742690058
-                    italian    |  9.9972027972027972
-                    chinese    | 10.2047244094488189
-                    vietnamese |  9.9154929577464789
-                    german     | 10.1027496382054993
+```
+         Type    |         avg
+------------+---------------------
+     mexican    | 10.0901525658807212
+     french     |  9.9719764011799410
+     japanese   |  9.9532163742690058
+     italian    |  9.9972027972027972
+     chinese    | 10.2047244094488189
+     vietnamese |  9.9154929577464789
+     german     | 10.1027496382054993
+```
 
 
 Intervals, Ranges, and sorting
@@ -305,32 +304,33 @@ Now we are going to get creative.
 
 Your output should look like:
 
-                      Type    |      avg_price
-                  ------------+---------------------
-                     chinese    | 10.2047244094488189
-                     german     | 10.1027496382054993
-                     mexican    | 10.0901525658807212
-                     italian    |  9.9972027972027972
-                     french     |  9.9719764011799410
-                     japanese   |  9.9532163742690058
-                     vietnamese |  9.9154929577464789
-                    (7 rows)
-
+```
+       Type    |      avg_price
+   ------------+---------------------
+      chinese    | 10.2047244094488189
+      german     | 10.1027496382054993
+      mexican    | 10.0901525658807212
+      italian    |  9.9972027972027972
+      french     |  9.9719764011799410
+      japanese   |  9.9532163742690058
+      vietnamese |  9.9154929577464789
+     (7 rows)
+```
 
 
 Next, let's experiment with ranges and intervals. Again get the average price per meal type and only get the food type with a price than or equal to 10.
 
-                               Type    |      avg_price
-                              ------------+---------------------
-                              french     | 12.6951566951566952
-                              chinese    | 12.6651053864168618
-                              japanese   | 12.6416666666666667
-                              mexican    | 12.6227848101265823
-                              german     | 12.5452196382428941
-                              vietnamese | 12.4921465968586387
-                              italian    | 12.4698492462311558
-
-
+```
+    Type    |      avg_price
+   ------------+---------------------
+   french     | 12.6951566951566952
+   chinese    | 12.6651053864168618
+   japanese   | 12.6416666666666667
+   mexican    | 12.6227848101265823
+   german     | 12.5452196382428941
+   vietnamese | 12.4921465968586387
+   italian    | 12.4698492462311558
+```
 
 
 
@@ -356,60 +356,33 @@ Next, compute a join on the users and meal tables.
 
 Now combine those queries to answer the question
 
-
-                        id  | count
-                      ------+-------
-                       1548 |     1
-                        106 |     4
-                        1513 |     1
-                        2125 |     1
-                        276 |     2
-                        606 |     2
-                        1439 |     2
-                        1728 |     2
-                        2285 |     2
-                        1676 |     1
-                        807 |     1
-                        1231 |     2
-                        151 |     1
-                        1692 |     1
-                        253 |     2
-                        852 |     1
-                        437 |     2
-                        4875 |     1
-                        549 |     3
-                        268 |     1
-                        310 |     3
-                        2055 |     1
-                        101 |     1
-                        836 |     1
-                        2136 |     1
-                        20 |     6
-                        4472 |     1
-                        1465 |     1
-                        1253 |     1
-                        359 |     3
-                        1060 |     1
-                        213 |     1
-                        3319 |     1
-                        1478 |     1
-                        2147 |     1
-                        1662 |     1
-                        292 |     1
-                        373 |     1
-                        27 |     1
-                        1403 |     1
-                        1936 |     2
-                        3876 |     1
-                        969 |     1
-                        1726 |     1
-                        1578 |     3
-                        449 |     1
-                        3159 |     1
-                        899 |     1
-                        1120 |     2
-
-
+```
+   id  | count
+ ------+-------
+  1548 |     1
+   106 |     4
+   1513 |     1
+   2125 |     1
+   276 |     2
+   606 |     2
+   1439 |     2
+   1728 |     2
+   2285 |     2
+   1676 |     1
+   807 |     1
+   1231 |     2
+   151 |     1
+   1692 |     1
+   253 |     2
+   852 |     1
+   437 |     2
+   4875 |     1
+   549 |     3
+   268 |     1
+   310 |     3
+   2055 |     1
+   etc.
+```
 
 Joins and aggregations
 ===========================
@@ -420,12 +393,12 @@ Now let's start doing some aggregate analysis. Take the time and answer the ques
 
 This will be composed of a multi table join, ranking by count of a column,  and then grouping by column value types.
 
-
-                         Campaign_ID | count | count
-                        -------------+-------+-------
-                         PI          |   532 |   532
-                        (1 row)
-
+```
+    Campaign_ID | count | count
+   -------------+-------+-------
+    PI          |   532 |   532
+   (1 row)
+```
 
 
 
@@ -441,6 +414,7 @@ Subqueries
 
 Here is an example of a [subquery](http://www.postgresql.org/docs/8.1/static/functions-subquery.html):
 
+```
 
                     select cost1,
                            quantity_1,
@@ -456,18 +430,13 @@ Here is an example of a [subquery](http://www.postgresql.org/docs/8.1/static/fun
                                (cost_2 * quantity_2) as total_2
                         from data
                     ) t
-
+```
 
 There is a lot going on here. One thing to understand is [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases)
 
 An alias renames a column using the as clause. This also allows us to create temporary columns aka derived attributes.
 
 We are going to use this to create a little mini report of meals that are greater than the average price for each category.
-
-
-
-
-
 
 
 
