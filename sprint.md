@@ -175,7 +175,7 @@ Now do this for each meal type.
 
 Create a group by meal type with an average price per meal type.
 
-
+//Add threshold calculation
 
 #Intervals, Ranges, and sorting
 
