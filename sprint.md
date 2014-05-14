@@ -254,19 +254,20 @@ Let's try some simple aggregation functions now.
 For example, if I wanted to know the total number of users in my database, I would run the following query:
 
 ```
-SELECT COUNT(*) 
-FROM Users
+SELECT COUNT(*) FROM "Users"
 ```
 
 
 Your output should look something like:
 
 ```
-  count
- -------
-   1265
- (1 row)
+   count 
+-------
+  5044
+(1 row)
 ```
+
+1. Modify the `SELECT` statement with a `WHERE` clause to count the total number of `Users` that came from Facebook.
 
 2. Now, calculate the percentage of users coming from each service. Just manually divide by the count. Note that this is a different number from up top. You want the total number of users period.
 
@@ -274,11 +275,10 @@ Your output should look something like:
 Aggregation functions: AVG
 ================================
 
-Moving on from the user's table a bit, let's try the [avg](http://www.postgresql.org/docs/9.1/static/functions-aggregate.html) function.
+Moving on from the user's table a bit, let's try the [AVG](http://www.postgresql.org/docs/9.1/static/functions-aggregate.html) function.
 The meals table has prices from which we can do some easy statistical calculations.
 
-1. Let's try to figure out the mean price of a given meal. Write a `SELECT` statement that returns only the price column
-   and calculate the mean or average price for a meal.
+1. Let's figure out the mean price of a given meal. Write a `SELECT` statement that returns only the price column and calculate the mean price for a meal.
 
 
 Your output should look something like this:
@@ -293,7 +293,7 @@ Your output should look something like this:
 
 2. Now do this for each meal type.
 
-Create a group by meal type with an average price per meal type.
+You should `GROUP BY` meal type and output an average price per meal type.
 
 
 Your output should look like this:
@@ -314,11 +314,10 @@ Your output should look like this:
 Intervals, Ranges, and sorting
 ==========================================
 
-Now we are going to get creative.
+Now we are going to get creative!
 
 1. Using the previous query, let's answer the question on what meal type
-   can be the most profitable. Add a sort descending on the previous query. This will allow us to understand
-   how to rank by average meal price. One thing to understand is [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases)
+   can be the most profitable. Using the [ORDER BY](http://www.postgresqltutorial.com/postgresql-order-by/) operator, sort the rows in descending order by average. This will allow us to understand how to rank by mean meal price. One important thing to understand is the proper use of [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases) so that the averages created in the `SELECT` statement are available to the `ORDER BY` clause.
 
 
 Your output should look like:
@@ -337,7 +336,7 @@ Your output should look like:
 ```
 
 
-2. Next, let's experiment with ranges and intervals. Again get the average price per meal type and only get the food type with a price than or equal to 10. (Grab food items with a price >= 10 only then average)
+2. Next, let's experiment with ranges and intervals. Again, get the average price per meal type and this time, restrict the query to only average rows with a food type price greater than or equal to 10. (Grab food items with a price >= 10 only, then average).
 
 ```
     Type    |      avg_price
@@ -359,21 +358,17 @@ Your output should look like:
 Joins
 =========================
 
-Now we are ready to do operations on multiple tables. If you remember [joins](http://www.tutorialspoint.com/postgresql/postgresql_using_joins.htm), joins allow us to perform aggregate operations
+Now we are ready to do operations on multiple tables. If you remember [joins](http://www.tutorialspoint.com/postgresql/postgresql_using_joins.htm), they allow us to perform aggregate operations on multiple tables. These results will easily get complicated so we should take care to understand what joins are, how each one works on different tables, and how to structure the query so we only return what we need.
 
-very fast on multiple tables. These result sets will easily get complicated so we should take care to understand what joins are,
-how each one works on different tables, and how to structure the query so we only return what we need.
+  1. Let's start by answering the question, _"How many meals did each user buy?"_
+     
+	We will need to perform a `JOIN` on the both the `Event` and `Meal` tables to answer this question.
 
+   2. First, we want to restrict our query to focus on users that actually purchased something. We can do this by [filtering](http://www.techonthenet.com/sql/where.php) the rows to return where the Event type is `bought`.
+ 
+3. Next, `JOIN ` the users and meal tables on their common `id` and `GROUP BY` User id.
 
-
-  1. Let's start by answering the question, "How many meals did each user buy"
-     We will need to perform joins on the Event,Meal  tables.
-
-   2. First, [filter](http://www.techonthenet.com/sql/where.php) the event type by bought.
-
-Next, compute a join on the users and meal tables.
-
-Now combine those queries to answer the question
+4. Combine those queries and your answer should look like this:
 
 ```
    id  | count
@@ -408,9 +403,9 @@ Joins and aggregations
 
 Now let's start doing some aggregate analysis. Take the time and answer the question,
 
-"What user from each campaign bought the most items?"
+_"What user from each campaign bought the most items?"_
 
-This will be composed of a multi table join, ranking by count of a column,  and then grouping by column value types.
+This will be composed of a multi-table join, ranking by count of a column,  and then grouping by column value types.
 
 ```
     Campaign_ID | count | count
@@ -423,7 +418,7 @@ This will be composed of a multi table join, ranking by count of a column,  and 
 
 
 
-If you get done with all of this, you can start with sub queries
+*Phew!* If you've made it this far, congratulations! You're ready to move on to subqueries.
 
 
 
@@ -433,113 +428,38 @@ Subqueries
 
 Here is an example of a [subquery](http://www.postgresql.org/docs/8.1/static/functions-subquery.html):
 
+
+```
+ SELECT cost1,
+        quantity_1,
+        cost_2,
+        quantity_2
+        total_1 + total_2 as total_3
+ FROM (
+     SELECT cost_1,
+            quantity_1,
+            cost_2,
+            quantity_2,
+            (cost_1 * quantity_1) AS total_1,
+            (cost_2 * quantity_2) AS total_2
+     FROM data
+ ) t
 ```
 
-                    select cost1,
-                           quantity_1,
-                           cost_2,
-                           quantity_2
-                           total_1 + total_2 as total_3
-                    from (
-                        select cost_1,
-                               quantity_1,
-                               cost_2,
-                               quantity_2,
-                               (cost_1 * quantity_1) as total_1,
-                               (cost_2 * quantity_2) as total_2
-                        from data
-                    ) t
-```
+There is a lot going on here. Take a moment to read and thorougly understand [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases). Try a few subquiries, experiment.
 
-There is a lot going on here. One thing to understand is [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases)
+In short, an alias renames a column using the `AS` clause. This also allows us to create temporary columns aka derived attributes.
 
-An alias renames a column using the as clause. This also allows us to create temporary columns aka derived attributes.
-
-We are going to use this to create a little mini report of meals that are greater than the average price for each category.
+We are going to use this to create a report of meals that are greater than the average price for each category.
 
 1. Identify items above the average price for the column.
 
-   
-Your output should look like:
-```
-              Type    | price
-            ------------+-------
-             french     |    12
-             french     |    11
-             french     |    11
-             chinese    |    15
-             japanese   |    13
-             italian    |    10
-             mexican    |    12
-             italian    |    11
-             vietnamese |    14
-             italian    |    10
-             vietnamese |    13
-             italian    |    12
-             vietnamese |    13
-             mexican    |    11
-             french     |    14
-             german     |    11
-             vietnamese |    15
-             french     |    15
-             italian    |    12
-             vietnamese |    12
-             mexican    |    13
-             german     |    14
-             french     |    11
-             french     |    13
-             italian    |    10
-             chinese    |    12
-             french     |    11
-             japanese   |    15
-             vietnamese |    13
-             vietnamese |    11
-             vietnamese |    13
-             german     |    15
-             german     |    15
-             chinese    |    12
-             italian    |    11
-             italian    |    14
-             vietnamese |    10
-             japanese   |    15
-             german     |    15
-             german     |    11
-             mexican    |    14
-             vietnamese |    13
-             vietnamese |    11
-             japanese   |    15
-             mexican    |    15
-             german     |    14
-             vietnamese |    14
-             mexican    |    11
-             mexican    |    13
-             chinese    |    12
-             vietnamese |    10
-             german     |    13
-             mexican    |    13
-             vietnamese |    14
-             italian    |    12
-             french     |    11
-             vietnamese |    14
-             german     |    12
-             japanese   |    10
-             vietnamese |    15
-             french     |    10
-             vietnamese |    14
-            --More--
-```
- 
-
 2. From there, count the number of meals per type that are above the average price.
-This can allow us to identify meals that might be slightly more profitable.
+This will allow us to identify meals that might be slightly more profitable.
 
-3. Now do the same thing for anything less than the mean, and do a count on all items that are below the mean
-price per meal type.
+3. Now do the same thing for anything less than the mean, and do a count on all items that are below the mean price per meal type.
 
-
-
-
-2. Count the number of items by type that are greater than the avg. Your output should be below:
+4. Count the number of items by type that are greater than the avg. Your output should look like below:
 
 
                     Type    | count
