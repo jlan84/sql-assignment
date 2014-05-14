@@ -447,8 +447,7 @@ So far we have used pretty standard SQL features/queries, but now we get to real
 * [Postgres: The Bits You Haven't Found](http://postgres-bits.herokuapp.com/#1)
 * [7 Handy SQL features for Data Scientists](http://blog.yhathq.com/posts/sql-for-data-scientists.html)
 
-Moving Window
-=============
+### Moving Window
 
 Now we will be getting in to moving window based time series analysis. Many questions asked in todays' work environment often involve doing monthly status reports. In an e-commerce business we typically want to know the likelihoods of certain events or perhaps an average price over time.
 
