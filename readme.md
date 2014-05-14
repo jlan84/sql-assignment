@@ -22,6 +22,9 @@ Extra Credit:
 
 Go through some useful SQL examples for data science from yhat's blog: [SQL for Data Scientists](http://blog.yhathq.com/posts/sql-for-data-scientists.html)
 
+
+Now go to [sprint.md](https://github.com/zipfian/sql/blob/master/sprint.md) which contains the actual exercise for today.
+
 ## References
 
 * [7 Handy SQL features for Data Scientists](http://blog.yhathq.com/posts/sql-for-data-scientists.html)
