@@ -82,12 +82,6 @@ to be connected to your database.
 
 Now we are in a command line client. This is how we will explore the database to gain an understanding of what data we are playing with.
 
-Now type:
-
-`psql readychef`
-
-This will connect you to the readychef database. From here, we will want to explore the schema of the database.
-
 First, we will want to see what the available tables are. Remember, now that we are in the database, all of our commands or actions
 will be on the `readychef` database.
 
