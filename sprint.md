@@ -3,17 +3,17 @@ SQL Sprint
 
 Overview
 ===================
-In this exercise, we are going to exercise the basics of SQL and gain an understanding of what an RDBMS has to offer.
-The ReadyChef database is a simulation of a user database for a food ecommerce website where user's have different activities
-such as sharing, liking, and buying. We are going to be focusing on simulating revenue
-related queries to answer basic questions you would at a day job for reporting purposes.
+In this exercise, we are going to learn the basics of SQL and gain an understanding of what an [RDBMS](http://en.wikipedia.org/wiki/Relational_database_management_system) has to offer.
+We've created a fake company  — ReadyChef — with simulated data. The database is a simulation of a user database for a food e-commerce website where user's have different activities
+such as sharing, liking, and buying. We are going to focus on general reporting with regards to revenue, referrals, and other  basic questions you would face at a day job.
 
 
-An RDBMS if you remember, is a server you connect to via a client that stores data on disk.
-You can then access that data via SQL.
-An RDBMS first has to store data in a database. This will already be in there for you.
-Firstly, let's get familiar with the traditional workflow of working with a database.
-We will be doing this with the command line client in postgresql.
+* An RDBMS if you remember, is a server that stores data on disk.
+* You connect to via a client, in this case `psql`
+* You can then query that data via SQL.
+* An RDBMS first has to store data in a database. We've created the database already  for you.
+* First, let's get familiar with the traditional workflow of working with a database.
+
 
 
 
@@ -52,7 +52,16 @@ Begin - Exploring the database commands
 First going in to the database, the [docs](http://www.postgresql.org/docs/9.3/interactive/) might be helpful.
 
 
-Open up a terminal and type:
+First thing that we need to do is start our Postgres database. In your terminal check to see if the server is running:
+
+`pg_ctl -D /usr/local/var/postgres status`
+
+If not, start your Postgres instance with the following command:
+
+`pg_ctl -D /usr/local/var/postgres start`
+
+Now enter into the interactive SQL shell:
+
 
 `psql`
 
@@ -545,7 +554,7 @@ price per meal type.
                 (7 rows)
 
 
-3. Now calculate the columnwise percentage of users from each service. You will need [this](http://stackoverflow.com/questions/6207224/calculcating-percentages-with-group-by-query).
+3. Now calculate the columnwise percentage of users from each service. You will need to use [GROUP BY](http://stackoverflow.com/questions/6207224/calculcating-percentages-with-group-by-query).
 
 
 Extra Tutorial:
