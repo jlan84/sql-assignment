@@ -52,78 +52,44 @@ Begin - Exploring the database commands
 First going in to the database, the [docs](http://www.postgresql.org/docs/9.3/interactive/) might be helpful.
 
 
-First thing that we need to do is start our Postgres database. In your terminal check to see if the server is running:
+First thing that we need to do is install your Postgres database. The easiest way to to install the pre-build application (with an adorable icon) using the following command:
 
-`pg_ctl -D /usr/local/var/postgres status`
+`brew cask install postgres`
 
-If not, start your Postgres instance with the following command:
+After the installation is complete, use Spotlight to search for `postgres` and open the Application. It will ask you if you want to move it to the Applications folder, say "Move it"
 
-`pg_ctl -D /usr/local/var/postgres start`
+Now, from the Postgres GUI, click on `open psql` and you should see a terminal window open. Once there, run the following commands to initialize your database:
 
-Now enter into the interactive SQL shell:
+`CREATE USER postgres SUPERUSER;`
 
+`CREATE USER readychef;`
 
-`psql`
-
-
-Now we are in a command line client. This is how we will explore the database to gain an understanding of what data we are playing with.
-
-We will want to first see what databases available to us. Remember, each database will have several tables. Usually you will only work with one database
-
-at a time. Now let's list the available databases.
-
-
-In your command line client type:
-
-`\l`
-
-You should see something like:
-
-                                    List of databases
-          Name    |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges
-      -----------+----------+----------+-------------+-------------+-----------------------
-           postgres  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
-           template0 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
-                     |          |          |             |             | postgres=CTc/postgres
-            template1 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
-          |          |          |             |             | postgres=CTc/postgres
-
-
-
-This will show the list of available databases. Now let's specify which database we should use.
-
-
-Let's play around with some of the databases other functions now. Let's say we want a help prompt.
-
-
-Now type:
-             
-`\h`
-
-This gives us a help prompt with a list of available commands. Don't worry about what all these mean right now.
-
-
-Now we are going to exit the postgres command line interface (cli):
-
-Type:
+`CREATE DATABASE readychef;`
 
 `\q`
 
+Now navigate to where you cloned this very repository and run the following command to import the database:
 
-Now exit the terminal. Based on the list of databases we just saw, we want the readychef database.
+`psql readychef < readychef.sql`
+
+You should see a bunch of SQL commands flow through the terminal. 
+
+To enter the interactive Postgres prompt, now enter:
+
+`psql readychef`
+
+to be connected to your database.
+
+Now we are in a command line client. This is how we will explore the database to gain an understanding of what data we are playing with.
 
 Now type:
 
 `psql readychef`
 
-
 This will connect you to the readychef database. From here, we will want to explore the schema of the database.
 
-Firstly, we will want to see what the available tables are. Remember, now that we are in the database, all of our commands or actions
-
-will be on the readychef database.
-
-
+First, we will want to see what the available tables are. Remember, now that we are in the database, all of our commands or actions
+will be on the `readychef` database.
 
 As of right now, we don't know much about the database. First, let's display the tables.
 
@@ -131,9 +97,7 @@ Type:
 
 `\d`
 
-
 This will give us a list of tables to choose from.
-
 
 One thing we might want to do is see all of the attributes of the table. To do this, pick a table and type:
 
@@ -142,7 +106,6 @@ One thing we might want to do is see all of the attributes of the table. To do t
 where table is the table you want to describe.
 
 Do this for each one to understand the column format of the table.
-
 
 
 Selecting from tables
