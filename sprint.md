@@ -435,6 +435,41 @@ This will allow us to identify meals that might be slightly more profitable.
 
 3. Now calculate the columnwise percentage of users from each service. You will need to use [GROUP BY](http://stackoverflow.com/questions/6207224/calculcating-percentages-with-group-by-query).
 
+Extra Credit
+========================
+
+Often times when running a web business you are not interested in simply optimizing a users visit, but rather in optimizing the entire lifetime of visits by a user.  This is typically referred to as Customer lifetime value (CLV).
+
+> In marketing, customer lifetime value (CLV) (or often CLTV), lifetime customer value (LCV), or user lifetime value (LTV) is a prediction of the net profit attributed to the entire future relationship with a customer.
+
+So far we have used pretty standard SQL features/queries, but now we get to really experience the power of Postgres.  Postgres has many nice advanced analytical features that other databases do not support.  It is for that reason that many data scientists choose Postgres as their tool of choice for analysis.
+
+* [Postgres: The Bits You Haven't Found](http://postgres-bits.herokuapp.com/#1)
+* [7 Handy SQL features for Data Scientists](http://blog.yhathq.com/posts/sql-for-data-scientists.html)
+
+Moving Window
+=============
+
+Now we will be getting in to moving window based time series analysis. Many questions asked in todays' work environment often involve doing monthly status reports. In an e-commerce business we typically want to know the likelihoods of certain events or perhaps an average price over time.
+
+Using [Window functions](http://www.postgresql.org/docs/9.1/static/tutorial-window.html) and [Date/Time functions](http://www.postgresql.org/docs/8.4/static/functions-datetime.html) we will first compute some additional metrics to guide our analysis:
+
+1. The number of users created on a given month.
+2. The number of times visited per month.
+3. The average # of meals bought per month.
+4. The average revenue per month (meals * price of meal).
+
+### Getting Specific!
+
+So far we have computed some interesting _global_ statistics on monthly meals and revenue.  But like all things in life, not everything is created equal.  We have begun to suspect that certain users are much more valuable than others, and considering that it cost different amount to market on Facebook vs. Twitter, etc. we want to adjust our monthly marketing spend on each service to be proportional to how valuable the users that come from that service are.
+
+Recompute the above statistics according to the referrer:
+
+1. The number of users created on a given month from each referrer.
+2. Average # of meals bought per month from each referrer.
+3. Average monthly revenue by referrer (i.e. how valuable is a user from Facebook?)
+
+We unfortunately have not been good data scientists and have not recorded when users leave our service.  Because of this we cannot know the average lifetime of a user, we only know when they have signed up.  Let this be a lesson to always remember everything.  We will comeback to our CLV calculation in a later sprint, but we have gotten a head-start on our analysis at least by computing some other interesting and useful metrics.
 
 Extra Tutorial:
 ========================
