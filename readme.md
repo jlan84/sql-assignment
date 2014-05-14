@@ -8,7 +8,7 @@
 * Grouping and Aggregates
 
 
-The purpose of this sprint to the gain familiarity with SQL fundementals, including joins and working with sets. This will prepare you for the web indexing exercise in the Wikipedia NLP sprint to follow.
+The purpose of this sprint to the gain familiarity with SQL fundementals, including joins and working with sets. 
 
 First off, read through [SQL for Data Scientists](http://bensresearch.com/downloads/SQL.pdf) document and become familiar with basic SQL commands, inner and outer joins, and basic grouping and aggregation functions.
 
