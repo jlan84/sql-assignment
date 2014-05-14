@@ -12,7 +12,11 @@ The purpose of this sprint to the gain familiarity with SQL fundementals, includ
 
 First off, read through [SQL for Data Scientists](http://bensresearch.com/downloads/SQL.pdf) document and become familiar with basic SQL commands, inner and outer joins, and basic grouping and aggregation functions.
 
-Next we'll be going through some hands-on examples using `SQlite` which you can [download](http://www.sqlite.org/download.html) from their [site](http://www.sqlite.org/quickstart.html).  Read over and complete (as in, actually complete the examples from the command prompt or Firefox plug-in) for Parts I, II, & III of [A Gentle Introduction to SQL Using SQLite](https://github.com/zipfian/SQL-Tutorial)
+We will be using [Postgres SQL](http://www.postgresql.org/) in this exercise. Postgres SQL is often used in industry for its useful extensions such as [PostGIS](http://postgis.net/).
+
+
+
+Go [here](http://www.postgresqltutorial.com/) for a tutorial on Postgres. This will give you a basic overview of syntax and other things that you encountered in the lecture.
 
 Extra Credit:
 
