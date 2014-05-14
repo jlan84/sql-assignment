@@ -440,7 +440,7 @@ Extra Credit
 
 Often times when running a web business you are not interested in simply optimizing a users visit, but rather in optimizing the entire lifetime of visits by a user.  This is typically referred to as Customer lifetime value (CLV).
 
-> In marketing, customer lifetime value (CLV) (or often CLTV), lifetime customer value (LCV), or user lifetime value (LTV) is a prediction of the net profit attributed to the entire future relationship with a customer.
+> In marketing, customer lifetime value (CLV), lifetime customer value (LCV), or user lifetime value (LTV) is a prediction of the net profit attributed to the entire future relationship with a customer.
 
 So far we have used pretty standard SQL features/queries, but now we get to really experience the power of Postgres.  Postgres has many nice advanced analytical features that other databases do not support.  It is for that reason that many data scientists choose Postgres as their tool of choice for analysis.
 
