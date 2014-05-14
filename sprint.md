@@ -327,6 +327,8 @@ Now we are ready to do operations on multiple tables. If you remember [joins](ht
 
 4. Combine those queries and your answer should look like this:
 
+Note that your output only needs to be one result.
+
 ```
    id  | count
  ------+-------
