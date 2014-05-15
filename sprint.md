@@ -455,6 +455,7 @@ Using [Window functions](http://www.postgresql.org/docs/9.1/static/tutorial-wind
 
 1. The number of users created on a given month.
 2. The number of times visited per month.
+3. The average time between user signups
 3. The average # of meals bought per month.
 4. The average revenue per month (meals * price of meal).
 
