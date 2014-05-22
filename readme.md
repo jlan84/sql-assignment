@@ -42,3 +42,7 @@ Go through some useful SQL examples for data science from yhat's blog: [SQL for 
 * [The fast-track, hands-on, no-nonsense introduction to SQL](https://github.com/dserban/WebDevCourseMaterials/tree/master/1-intro-to-sql)
 * [Intro to SQL](http://bensresearch.com/downloads/SQL.pdf)
 
+### Joins
+
+* [Visual Explanation of Joins](http://blog.codinghorror.com/a-visual-explanation-of-sql-joins/)
+* [SQL Joins](https://chartio.com/education/sql/joins)
