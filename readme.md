@@ -34,6 +34,7 @@ Go through some useful SQL examples for data science from yhat's blog: [SQL for 
 
 ## References
 
+* [ModeAnalytics: SQL School](http://sqlschool.modeanalytics.com/)
 * [7 Handy SQL features for Data Scientists](http://blog.yhathq.com/posts/sql-for-data-scientists.html)
 * [Postgres Docs](http://www.postgresql.org/docs/7.4/static/tutorial.html)
 * [Postgres Guide](http://postgresguide.com/)
