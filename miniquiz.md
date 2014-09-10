@@ -1,8 +1,8 @@
-1. Postgres
+## 1. Postgres
 
-What command do I use to connect to a Postgres database named `my_db`?  How to print out what databases are in my Postgres instance and for each database, what is the command to print out a list of the tables?
+What command do I use to connect to a Postgres database named `my_db`?  How do I print out what databases are in my Postgres instance? And for each database, what is the command to print out a list of the tables?
 
-2. SQL
+## 2. SQL
 
 Assume we have a table with the following schema:
 
@@ -17,7 +17,9 @@ Assume we have a table with the following schema:
 
 Write a SQL query that returns total amount of revenue from the affiliate network.
 
-3. What is the resulting table of a full outer join (on employee_id) of the following two tables:
+## 3. Joins 
+
+What is the resulting table of a full outer join (on employee_id) of the following two tables:
 
 | employee_id | department_id | name | salary |
 | 2 | 1 | Jon | 40000 |
