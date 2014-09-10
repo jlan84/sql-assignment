@@ -22,6 +22,7 @@ Write a SQL query that returns total amount of revenue from the affiliate networ
 What is the resulting table of a full outer join (on employee_id) of the following two tables:
 
 | employee_id | department_id | name | salary |
+|:--:|:--:|:--:|:--:|
 | 2 | 1 | Jon | 40000 |
 | 7 | 1 | Linda | 50000 |
 | 12 | 2 | Ashley | 15000 |
@@ -30,6 +31,7 @@ What is the resulting table of a full outer join (on employee_id) of the followi
 and
 
 | department_id | location |
+|:--:|:--:|
 | 1 | 2 | NY |
 | 2 | 2 | SF |
 | 3 | 2 | Austin |
