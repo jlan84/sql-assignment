@@ -32,6 +32,6 @@ and
 
 | department_id | location |
 |:--:|:--:|
-| 1 | 2 | NY |
-| 2 | 2 | SF |
-| 3 | 2 | Austin |
+| 1 | NY |
+| 2 | SF |
+| 3 | Austin |
