@@ -19,7 +19,7 @@ Write a SQL query that returns total amount of revenue from the affiliate networ
 
 ## 3. Joins 
 
-What is the resulting table of a full outer join (on employee_id) of the following two tables:
+What is the resulting table of a full outer join (on department_id) of the following two tables:
 
 | employee_id | department_id | name | salary |
 |:--:|:--:|:--:|:--:|
