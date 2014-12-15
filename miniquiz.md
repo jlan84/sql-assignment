@@ -1,37 +1,45 @@
-## 1. Postgres
+## 1. Create a Random Variable
 
-What command do I use to connect to a Postgres database named `my_db`?  How do I print out what databases are in my Postgres instance? And for each database, what is the command to print out a list of the tables?
+Say you're giving a probability mass function in the form of a dictionary like this:
 
-## 2. SQL
+```python
+{'A': 0.5, 'B': 0.1, 'C': 0.4}
+```
 
-Assume we have a table with the following schema:
+I would like to get a random variable which is `A` 50% of the time, `B` 10% of the time and `C` 40% of the time. Write a function to do this. The only random function you can use is a uniform random distributino (use the `random` function from the `random` module).
 
-|user_id | item_id | price | source |
-|:--:| :--:|:--:|:--:|
-| 2 | 45 | 25 | in_store |
-| 567 | 5 | 12 | online |
-| 57 | 200 | 9 | affiliate |
-| 10 | 7 | 703 | online |
-| ... | ... | ... | ... |
+In ipython, type `from random import random` to get the function and type `random?` to see what it does.
 
+Now complete this function:
 
-Write a SQL query that returns total amount of revenue from the affiliate network.
+```python
+def random_variable(pmf):
+    '''
+    INPUT: dictionary
+    OUTPUT: one of the keys of the dictionary
 
-## 3. Joins 
+    Return one of the keys of the dictionary according to the given probabilities. You may assume the probabilities sum to 1.
+    '''
+```
 
-What is the resulting table of a full outer join (on department_id) of the following two tables:
+## 2. Python modules
 
-| employee_id | department_id | name | salary |
-|:--:|:--:|:--:|:--:|
-| 2 | 1 | Jon | 40000 |
-| 7 | 1 | Linda | 50000 |
-| 12 | 2 | Ashley | 15000 |
-| 1 | 0 | Mike | 80000 |
+Say you have a file called `code.py` with these contents:
 
-and
+```python
+def print_hello(name):
+    print "Hello, %s!" % name
 
-| department_id | location |
-|:--:|:--:|
-| 1 | NY |
-| 2 | SF |
-| 3 | Austin |
+print_hello("Jeff")
+```
+
+1. Before actually creating this file and running any code, determine what you think will happen if you run the following code in the command line.
+
+    ```python
+    from code import print_hello
+    print_hello("Tammy")
+    ```
+
+2. Create the `code.py` file and run the above code. Is this what you expected?
+
+3. Modify the `code.py` so that you only get one "Hello" from running the above code. Make sure that if I run `python code.py` on the command line I will still get the same result as before!
