@@ -22,6 +22,18 @@ def random_variable(pmf):
     '''
 ```
 
+Test that your code works correctly with the following code:
+
+```python
+from collections import Counter
+results = Counter()
+total = 10000
+for i in xrange(total):
+    results[random_variable({'A': 0.5, 'B': 0.1, 'C': 0.4})] += 1
+for key, value in results.iteritems():
+    print key, float(value) / total
+```
+
 ## 2. Python modules
 
 Say you have a file called `code.py` with these contents:
