@@ -135,39 +135,39 @@ Now, let's select specific attributes of the Users table. We will want to answer
 
 1. What social networks do users come from?
 
-Write a `SELECT` statememnt that returns only the `Campaign_ID` column from a given table. This will contain the titles of the different social networks.
+    Write a `SELECT` statememnt that returns only the `Campaign_ID` column from a given table. This will contain the titles of the different social networks.
 
-The campaign ids returned are from different social networks :
+    The campaign ids returned are from different social networks :
 
-Pinterest=PI, Facebook=FB, Twitter=TW, and Reddit=RE.
+    Pinterest=PI, Facebook=FB, Twitter=TW, and Reddit=RE.
 
-Your output should look something like this:
+    Your output should look something like this:
 
-```
-  Campaign_ID
- -------------
-   RE
-   FB
-   FB
-   RE
-   TW
-   TW
-   FB
-   RE
-   TW
-   RE
-   RE
-   FB
-   RE
-   PI
-   PI
-   PI
-   PI
-   PI
-   RE
-   FB
-   FB
-```
+    ```
+      Campaign_ID
+     -------------
+       RE
+       FB
+       FB
+       RE
+       TW
+       TW
+       FB
+       RE
+       TW
+       RE
+       RE
+       FB
+       RE
+       PI
+       PI
+       PI
+       PI
+       PI
+       RE
+       FB
+       FB
+    ```
 
 Where Clauses / Filtering
 ========================================
