@@ -71,7 +71,8 @@ There isn't total concensus about how to do style in SQL, but here's some genera
                      FROM products
                      WHERE
                          dept='shoes' AND
-                         date>'2014-10-01');
+                         date>'2014-10-01')
+        ORDER BY name;
         ```
 
         The main rule of thumb is to keep everything lined up with the `SELECT` keyword. This makes it clear what is part of the nested select and when it ends.0
