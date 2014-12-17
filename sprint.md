@@ -177,21 +177,22 @@ Now that we have the lay of the land, we're interested in the subset of users th
 _If you get syntax errors, a tip here is to put the literals in single quotes._
 
 1. Using the `WHERE` clause, write a new `SELECT` statement that returns all rows where `Campaign_ID` is equal to `FB`.
+
 2. But what if we only care about their user `ID`s? Modify your `SELECT` statement to return only the `id` and the `Campaign_ID` columns from users that came from FB.
 
-Your output should be something like this:
+    Your output should be something like this:
 
-```
-id  | Campaign_ID
-------+-------------
-      51 | FB
-      52 | FB
-      56 | FB 
-      61 | FB
-      69 | FB
-      70 | FB
-      73 | FB
-```
+    ```
+    id  | Campaign_ID
+    ------+-------------
+          51 | FB
+          52 | FB
+          56 | FB 
+          61 | FB
+          69 | FB
+          70 | FB
+          73 | FB
+    ```
 
 So what have we accomplished here?
 
@@ -208,21 +209,21 @@ Let's try some simple aggregation functions now.
 
 1. Now, modify your `SELECT` statement to [COUNT](http://www.postgresql.org/docs/8.2/static/functions-aggregate.html) the total number of users that come from FB. Unlike `WHERE` clauses, aggregation functions are specified in the `SELECT` statement itself.
 
-For example, if I wanted to know the total number of users in my database, I would run the following query:
+    For example, if I wanted to know the total number of users in my database, I would run the following query:
 
-```
-SELECT COUNT(*) FROM "Users"
-```
+    ```
+    SELECT COUNT(*) FROM "Users"
+    ```
 
 
-Your output should look something like:
+    Your output should look something like:
 
-```
-   count 
--------
-  5044
-(1 row)
-```
+    ```
+       count 
+    -------
+      5044
+    (1 row)
+    ```
 
 1. Modify the `SELECT` statement with a `WHERE` clause to count the total number of `Users` that came from Facebook.
 
@@ -237,35 +238,32 @@ The meals table has prices from which we can do some easy statistical calculatio
 
 1. Let's figure out the mean price of a given meal. Write a `SELECT` statement that returns only the price column and calculate the mean price for a meal.
 
+    Your output should look something like this:
 
-Your output should look something like this:
-
-```
-           avg
-   ---------------------
-     10.0360814351945172
-         (1 row)
-```
-
+    ```
+               avg
+       ---------------------
+         10.0360814351945172
+             (1 row)
+    ```
 
 2. Now do this for each meal type.
 
-You should `GROUP BY` meal type and output an average price per meal type.
+    You should `GROUP BY` meal type and output an average price per meal type.
 
+    Your output should look like this:
 
-Your output should look like this:
-
-```
-         Type    |         avg
-------------+---------------------
-     mexican    | 10.0901525658807212
-     french     |  9.9719764011799410
-     japanese   |  9.9532163742690058
-     italian    |  9.9972027972027972
-     chinese    | 10.2047244094488189
-     vietnamese |  9.9154929577464789
-     german     | 10.1027496382054993
-```
+    ```
+             Type    |         avg
+    ------------+---------------------
+         mexican    | 10.0901525658807212
+         french     |  9.9719764011799410
+         japanese   |  9.9532163742690058
+         italian    |  9.9972027972027972
+         chinese    | 10.2047244094488189
+         vietnamese |  9.9154929577464789
+         german     | 10.1027496382054993
+    ```
 
 
 Intervals, Ranges, and sorting
@@ -276,117 +274,102 @@ Now we are going to get creative!
 1. Using the previous query, let's answer the question on what meal type
    can be the most profitable. Using the [ORDER BY](http://www.postgresqltutorial.com/postgresql-order-by/) operator, sort the rows in descending order by average. This will allow us to understand how to rank by mean meal price. One important thing to understand is the proper use of [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases) so that the averages created in the `SELECT` statement are available to the `ORDER BY` clause.
 
+    Your output should look like:
 
-Your output should look like:
-
-```
-       Type    |      avg_price
-   ------------+---------------------
-      chinese    | 10.2047244094488189
-      german     | 10.1027496382054993
-      mexican    | 10.0901525658807212
-      italian    |  9.9972027972027972
-      french     |  9.9719764011799410
-      japanese   |  9.9532163742690058
-      vietnamese |  9.9154929577464789
-     (7 rows)
-```
-
+    ```
+           Type    |      avg_price
+       ------------+---------------------
+          chinese    | 10.2047244094488189
+          german     | 10.1027496382054993
+          mexican    | 10.0901525658807212
+          italian    |  9.9972027972027972
+          french     |  9.9719764011799410
+          japanese   |  9.9532163742690058
+          vietnamese |  9.9154929577464789
+         (7 rows)
+    ```
 
 2. Next, let's experiment with ranges and intervals. Again, get the average price per meal type and this time, restrict the query to only average rows with a food type price greater than or equal to 10. (Grab food items with a price >= 10 only, then average).
 
-```
-    Type    |      avg_price
-   ------------+---------------------
-   french     | 12.6951566951566952
-   chinese    | 12.6651053864168618
-   japanese   | 12.6416666666666667
-   mexican    | 12.6227848101265823
-   german     | 12.5452196382428941
-   vietnamese | 12.4921465968586387
-   italian    | 12.4698492462311558
-```
-
-
-
-
-
+    ```
+        Type    |      avg_price
+       ------------+---------------------
+       french     | 12.6951566951566952
+       chinese    | 12.6651053864168618
+       japanese   | 12.6416666666666667
+       mexican    | 12.6227848101265823
+       german     | 12.5452196382428941
+       vietnamese | 12.4921465968586387
+       italian    | 12.4698492462311558
+    ```
 
 Joins
 =========================
 
 Now we are ready to do operations on multiple tables. If you remember [joins](http://www.tutorialspoint.com/postgresql/postgresql_using_joins.htm), they allow us to perform aggregate operations on multiple tables. These results will easily get complicated so we should take care to understand what joins are, how each one works on different tables, and how to structure the query so we only return what we need.
 
-  1. Let's start by answering the question, _"How many meals did each user buy?"_
-     
-	We will need to perform a `JOIN` on the both the `Event` and `Meal` tables to answer this question.
+1. Let's start by answering the question, _"How many meals did each user buy?"_
+ 
+We will need to perform a `JOIN` on the both the `Event` and `Meal` tables to answer this question.
 
-   2. First, we want to restrict our query to focus on users that actually purchased something. We can do this by [filtering](http://www.techonthenet.com/sql/where.php) the rows to return where the Event type is `bought`.
+2. First, we want to restrict our query to focus on users that actually purchased something. We can do this by [filtering](http://www.techonthenet.com/sql/where.php) the rows to return where the Event type is `bought`.
  
 3. Next, `JOIN ` the users and meal tables on their common `id` and `GROUP BY` User id.
 
 4. Combine those queries and your answer should look like this:
 
-Note that your output only needs to be one result.
+    Note that your output only needs to be one result.
 
-```
-   id  | count
- ------+-------
-  1548 |     1
-   106 |     4
-  1513 |     1
-  2125 |     1
-   276 |     2
-   606 |     2
-  1439 |     2
-  1728 |     2
-  2285 |     2
-  1676 |     1
-   807 |     1
-  1231 |     2
-   151 |     1
-  1692 |     1
-   253 |     2
-   852 |     1
-   437 |     2
-  4875 |     1
-   549 |     3
-   268 |     1
-   310 |     3
-  2055 |     1
-   etc.
-```
+    ```
+       id  | count
+     ------+-------
+      1548 |     1
+       106 |     4
+      1513 |     1
+      2125 |     1
+       276 |     2
+       606 |     2
+      1439 |     2
+      1728 |     2
+      2285 |     2
+      1676 |     1
+       807 |     1
+      1231 |     2
+       151 |     1
+      1692 |     1
+       253 |     2
+       852 |     1
+       437 |     2
+      4875 |     1
+       549 |     3
+       268 |     1
+       310 |     3
+      2055 |     1
+       etc.
+    ```
 
 Joins and aggregations
 ===========================
 
-Now let's start doing some aggregate analysis. Take the time and answer the question,
+Now let's start doing some aggregate analysis.
 
-_"What user from each campaign bought the most items?"_
+1. Answer the question, _"What user from each campaign bought the most items?"_
 
-This will be composed of a multi-table join, ranking by count of a column,  and then grouping by column value types.
+    This will be composed of a multi-table join, ranking by count of a column,  and then grouping by column value types.
 
-```
+    ```
     Campaign_ID | count | count
-   -------------+-------+-------
+    -------------+-------+-------
     PI          |   532 |   532
-   (1 row)
-```
-
-
-
-
+    (1 row)
+    ```
 
 *Phew!* If you've made it this far, congratulations! You're ready to move on to subqueries.
-
-
-
 
 Subqueries
 ================================
 
 Here is an example of a [subquery](http://www.postgresql.org/docs/8.1/static/functions-subquery.html):
-
 
 ```
  SELECT cost1,
@@ -420,18 +403,18 @@ This will allow us to identify meals that might be slightly more profitable.
 
 4. Count the number of items by type that are greater than the avg. Your output should look like below:
 
-
-                    Type    | count
-                ------------+-------
-                 mexican    |   340
-                 french     |   351
-                 japanese   |   360
-                 italian    |   398
-                 chinese    |   369
-                 vietnamese |   382
-                 german     |   316
-                (7 rows)
-
+    ```
+        Type    | count
+    ------------+-------
+     mexican    |   340
+     french     |   351
+     japanese   |   360
+     italian    |   398
+     chinese    |   369
+     vietnamese |   382
+     german     |   316
+    (7 rows)
+    ```
 
 3. Now calculate the columnwise percentage of users from each service. You will need to use [GROUP BY](http://stackoverflow.com/questions/6207224/calculcating-percentages-with-group-by-query).
 
@@ -454,9 +437,13 @@ Now we will be getting in to moving window based time series analysis. Many ques
 Using [Window functions](http://www.postgresql.org/docs/9.1/static/tutorial-window.html) and [Date/Time functions](http://www.postgresql.org/docs/8.4/static/functions-datetime.html) we will first compute some additional metrics to guide our analysis:
 
 1. The number of users created on a given month.
+
 2. The number of times visited per month.
+
 3. The average time between user signups
+
 3. The average # of meals bought per month.
+
 4. The average revenue per month (meals * price of meal).
 
 ### Getting Specific!
@@ -466,7 +453,9 @@ So far we have computed some interesting _global_ statistics on monthly meals an
 Recompute the above statistics according to the referrer:
 
 1. The number of users created on a given month from each referrer.
+
 2. Average # of meals bought per month from each referrer.
+
 3. Average monthly revenue by referrer (i.e. how valuable is a user from Facebook?)
 
 We unfortunately have not been good data scientists and have not recorded when users leave our service.  Because of this we cannot know the average lifetime of a user, we only know when they have signed up.  Let this be a lesson to always remember everything.  We will comeback to our CLV calculation in a later sprint, but we have gotten a head-start on our analysis at least by computing some other interesting and useful metrics.
