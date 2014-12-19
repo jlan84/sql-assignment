@@ -3,19 +3,11 @@ SQL Sprint
 
 Overview
 ===================
-In this exercise, we are going to learn the basics of SQL and gain an understanding of what an [RDBMS](http://en.wikipedia.org/wiki/Relational_database_management_system) has to offer.
-We've created a fake company  — ReadyChef — with simulated data. The database is a simulation of a user database for a food e-commerce website where user's have different activities
-such as sharing, liking, and buying. We are going to focus on general reporting with regards to revenue, referrals, and other  basic questions you would face at a day job.
+In this exercise, we are going to learn the basics of SQL and gain an understanding of what an [RDBMS](http://en.wikipedia.org/wiki/Relational_database_management_system) has to offer. Databases are based on a very simple idea of CRUD (Create, Read, Update, Delete). As a data scientist, your primary role will be the Read part to do some analysis.
 
+We've created a fake company called *ReadyChef* with simulated data. The database is a simulation of a user database for a food e-commerce website where users have different activities such as sharing, liking, and buying of posted meals.
 
-* An RDBMS if you remember, is a server that stores data on disk.
-* You connect to via a client, in this case `psql`
-* You can then query that data via SQL.
-* An RDBMS first has to store data in a database. We've created the database already  for you.
-* First, let's get familiar with the traditional workflow of working with a database.
-
-
-
+We are going to focus on general reporting with regards to revenue, referrals, and other basic questions you would face on the job.
 
 Goals
 ======================
@@ -30,246 +22,165 @@ Goals
    9. More subqueries - a whole tutorial
    10. Extra Tutorial on selects
 
-
-Helpful Tip:
-==========================
-
-Also, when doing your queries, there are tables that are capital. This is to teach you how to do quoting.
-
-Since Postgres is case sensitive, you will want to double quote anything you reference that's a part of the database.
-
-
-The concrete syntax for this will be:
-
-`"table"."column_name"`
-
-This will be useful later.
-
-
-Begin - Exploring the database commands
+Setting up Postgres
 ================================
+Here's the [postgres docs](http://www.postgresql.org/docs/9.3/interactive/) which often prove useful for figuring stuff out.
 
-First going in to the database, the [docs](http://www.postgresql.org/docs/9.3/interactive/) might be helpful.
+To set postgres up on your personal computer, follow the following steps (for a mac).
 
+1. Install your Postgres database. The easiest way to to install the pre-build application (with an adorable icon) using the following command:
 
-First thing that we need to do is install your Postgres database. The easiest way to to install the pre-build application (with an adorable icon) using the following command:
+    ```
+    brew cask install postgres
+    ```
 
-`brew cask install postgres`
+    If you don't have homebrew, go [here](http://brew.sh/).
 
-After the installation is complete, use Spotlight to search for `postgres` and open the Application. It will ask you if you want to move it to the Applications folder, say "Move it"
+2. After the installation is complete, use Spotlight to search for `postgres` and open the Application. It will ask you if you want to move it to the Applications folder, say "Move it"
 
-Now, from the Postgres GUI, click on `open psql` and you should see a terminal window open. Once there, run the following commands to initialize your database:
+Loading the database
+======================
 
-`CREATE USER postgres SUPERUSER;`
+In this repo, there's a SQL dump of the data we'll be using today.
 
-`CREATE USER readychef;`
+1. From the commandline run `psql` and then these commands:
 
-`CREATE DATABASE readychef;`
+    ```sql
+    CREATE USER postgres SUPERUSER;
+    CREATE DATABASE readychef;
+    \q
+    ```
 
-`\q`
+1. Navigate to where you cloned this very repository and run the following command to import the database:
 
-Now navigate to where you cloned this very repository and run the following command to import the database:
+    ```
+    psql readychef < readychef.sql
+    ```
 
-`psql readychef < readychef.sql`
+    You should see a bunch of SQL commands flow through the terminal. 
 
-You should see a bunch of SQL commands flow through the terminal. 
+1. To enter the interactive Postgres prompt, now enter the following to be connected or your database.
 
-To enter the interactive Postgres prompt, now enter:
-
-`psql readychef`
-
-to be connected to your database.
+    ```
+    psql readychef
+    ```
 
 Now we are in a command line client. This is how we will explore the database to gain an understanding of what data we are playing with.
 
-First, we will want to see what the available tables are. Remember, now that we are in the database, all of our commands or actions
-will be on the `readychef` database.
+Basic Exploration
+=================
 
-As of right now, we don't know much about the database. First, let's display the tables.
+First, we will want to see what the available tables are. Remember, now that we are in the database, all of our commands or actions will be on the `readychef` database.
 
-Type:
+1. What are the tables in our database? Run `\d` to find out.
 
-`\d`
-
-This will give us a list of tables to choose from.
-
-One thing we might want to do is see all of the attributes of the table. To do this, pick a table and type:
-
-`\d table`
-
-where table is the table you want to describe.
-
-Do this for each one to understand the column format of the table.
+2. What columns does each table have? Run `\d tablename` to find out.
 
 
-Selecting from tables
-=================================
+Select statements
+===================
 
-Now that we are comfortable with moving around the database and the different options, we can start querying.
-Remember, databases are based on a very
-simple idea of CRUD (Create,Read,Update,Delete). As a data scientist,
-your primary role will be the Read part to do some analysis. In this exercise,
-we are going to focus on the select statement.
+1. To get an understanding of the data, run a [SELECT](http://www.postgresqltutorial.com/postgresql-select/) statement on each table. Keep all the columns and limit the number of rows to 10.
 
-1. Run a [SELECT](http://www.postgresqltutorial.com/postgresql-select/) statement on each table. Limit the number of rows to 10.
+2. Write a `SELECT` statement that would get just the userids.
 
+3. Maybe you're just interested in what the campaign ids are. Use 'SELECT DISTINCT' to figure out all the possible values of that column.
 
-Select specific attributes
-=======================================================
-
-Now that we have seen how to select data from tables. Let's do something practical and select different columns from each table.
-From here, we are going to start answering basic questions about the data.
-To start let's pick a table to play with. To remind ourselves of the available tables, type:
-
-`\d`
-
-This command will then be:
-
-
-`\d "tablename"`
-
-The quotes for table names and other database entities are required.
-
-
-Now, let's select specific attributes of the Users table. We will want to answer the question,
-
-1. What social networks do users come from?
-
-    Write a `SELECT` statememnt that returns only the `Campaign_ID` column from a given table. This will contain the titles of the different social networks.
-
-    The campaign ids returned are from different social networks :
-
-    Pinterest=PI, Facebook=FB, Twitter=TW, and Reddit=RE.
-
-    Your output should look something like this:
-
-    ```
-      Campaign_ID
-     -------------
-       RE
-       FB
-       FB
-       RE
-       TW
-       TW
-       FB
-       RE
-       TW
-       RE
-       RE
-       FB
-       RE
-       PI
-       PI
-       PI
-       PI
-       PI
-       RE
-       FB
-       FB
-    ```
+    *Note:*  Pinterest=PI, Facebook=FB, Twitter=TW, and Reddit=RE
 
 Where Clauses / Filtering
 ========================================
 
-Now that we have the lay of the land, we're interested in the subset of users that came from Facebook (FB).   If you're unfamiliar with SQL syntax, the [WHERE](http://www.postgresqltutorial.com/postgresql-where/) clause can be used to add a conditional to `SELECT` statements. This has the effect of only returning rows where the conditional evaluates to `TRUE`. 
+Now that we have the lay of the land, we're interested in the subset of users that came from Facebook (FB). If you're unfamiliar with SQL syntax, the [WHERE](http://www.postgresqltutorial.com/postgresql-where/) clause can be used to add a conditional to `SELECT` statements. This has the effect of only returning rows where the conditional evaluates to `TRUE`. 
 
-_If you get syntax errors, a tip here is to put the literals in single quotes._
+*Note: Make sure you put string literals in single quotes, like `campaign_id='TW'`.*
 
 1. Using the `WHERE` clause, write a new `SELECT` statement that returns all rows where `Campaign_ID` is equal to `FB`.
 
-2. But what if we only care about their user `ID`s? Modify your `SELECT` statement to return only the `id` and the `Campaign_ID` columns from users that came from FB.
+2. We don't need the campaign id in the result since they are all the same, so only include the other two columns.
 
     Your output should be something like this:
 
     ```
-    id  | Campaign_ID
-    ------+-------------
-          51 | FB
-          52 | FB
-          56 | FB 
-          61 | FB
-          69 | FB
-          70 | FB
-          73 | FB
+     userid |     dt
+    --------+------------
+          3 | 2013-01-01
+          4 | 2013-01-01
+          5 | 2013-01-01
+          6 | 2013-01-01
+          8 | 2013-01-01
+    ...
     ```
 
-So what have we accomplished here?
+Aggregation Functions
+=======================
 
-We now know how to select different columns from different tables, explore the database,
-and filter out by certain values.
+Let's try some [aggregation functions](http://www.postgresql.org/docs/8.2/static/functions-aggregate.html) now.
 
+`COUNT` is an example aggregate function, which counts all the entries and you can use like this:
 
+```sql
+SELECT COUNT(*) FROM users;
+```
 
-Aggregation Functions: Counting
-=======================================
+Your output should look something like:
 
-Let's try some simple aggregation functions now.
+```
+ count
+-------
+  5524
+(1 row)
+```
 
+1. Write a query to get the count of just the users who came from Facebook.
 
-1. Now, modify your `SELECT` statement to [COUNT](http://www.postgresql.org/docs/8.2/static/functions-aggregate.html) the total number of users that come from FB. Unlike `WHERE` clauses, aggregation functions are specified in the `SELECT` statement itself.
+2. Now, count the number of users coming from each service. Here you'll have to group by the column you're selecting with a [GROUP BY](http://www.postgresql.org/docs/8.0/static/sql-select.html#SQL-GROUPBY) clause.
 
-    For example, if I wanted to know the total number of users in my database, I would run the following query:
+    Try running the query without a group by. Postgres will tell you what to put in your group by clause!
+
+3. Use `COUNT (DISTINCT columnname)` to get the number of unique dates that appear in the `users` table.
+
+4. There's also `MAX` and `MIN` functions, which do what you might expect. Write a query to get the first and last registration date from the `users` table.
+
+5. Calculate the mean price for a meal (from the `meals` table). You can use the `AVG` function. Your result should look like this:
 
     ```
-    SELECT COUNT(*) FROM "Users"
-    ```
-
-
-    Your output should look something like:
-
-    ```
-       count 
-    -------
-      5044
+             avg
+    ---------------------
+     10.6522829904666332
     (1 row)
     ```
 
-1. Modify the `SELECT` statement with a `WHERE` clause to count the total number of `Users` that came from Facebook.
-
-2. Now, calculate the percentage of users coming from each service. Just manually divide by the count. Note that this is a different number from up top. You want the total number of users period.
-
-
-Aggregation functions: AVG
-================================
-
-Moving on from the user's table a bit, let's try the [AVG](http://www.postgresql.org/docs/9.1/static/functions-aggregate.html) function.
-The meals table has prices from which we can do some easy statistical calculations.
-
-1. Let's figure out the mean price of a given meal. Write a `SELECT` statement that returns only the price column and calculate the mean price for a meal.
-
-    Your output should look something like this:
-
-    ```
-               avg
-       ---------------------
-         10.0360814351945172
-             (1 row)
-    ```
-
-2. Now do this for each meal type.
-
-    You should `GROUP BY` meal type and output an average price per meal type.
+6. Now get the average price, the min price and the max price for each meal type. Don't forget the group by statement!
 
     Your output should look like this:
 
     ```
-             Type    |         avg
-    ------------+---------------------
-         mexican    | 10.0901525658807212
-         french     |  9.9719764011799410
-         japanese   |  9.9532163742690058
-         italian    |  9.9972027972027972
-         chinese    | 10.2047244094488189
-         vietnamese |  9.9154929577464789
-         german     | 10.1027496382054993
+        type    |         avg         | min | max
+    ------------+---------------------+-----+-----
+     mexican    |  9.6975945017182131 |   6 |  13
+     french     | 11.5420000000000000 |   7 |  16
+     japanese   |  9.3804878048780488 |   6 |  13
+     italian    | 11.2926136363636364 |   7 |  16
+     chinese    |  9.5187165775401070 |   6 |  13
+     vietnamese |  9.2830188679245283 |   6 |  13
+    (6 rows)
     ```
 
+7. We can always rename columns that we select by doing `COUNT(*) AS total_count`. This is called [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases). Write a query to get the average price for each type and name the average column `avg_price`.
+
+    You output should look like this:
+
+    ```
+        type    |    average_price
+    ------------+---------------------
+     mexican    |  9.6975945017182131
+     french     | 11.5420000000000000
+    ...
+    ```
 
 Intervals, Ranges, and sorting
 ==========================================
-
-Now we are going to get creative!
 
 1. Using the previous query, let's answer the question on what meal type
    can be the most profitable. Using the [ORDER BY](http://www.postgresqltutorial.com/postgresql-order-by/) operator, sort the rows in descending order by average. This will allow us to understand how to rank by mean meal price. One important thing to understand is the proper use of [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases) so that the averages created in the `SELECT` statement are available to the `ORDER BY` clause.
@@ -279,28 +190,19 @@ Now we are going to get creative!
     ```
            Type    |      avg_price
        ------------+---------------------
-          chinese    | 10.2047244094488189
-          german     | 10.1027496382054993
-          mexican    | 10.0901525658807212
-          italian    |  9.9972027972027972
-          french     |  9.9719764011799410
-          japanese   |  9.9532163742690058
-          vietnamese |  9.9154929577464789
-         (7 rows)
+        chinese    | 10.2047244094488189
+        german     | 10.1027496382054993
+       ...
     ```
 
 2. Next, let's experiment with ranges and intervals. Again, get the average price per meal type and this time, restrict the query to only average rows with a food type price greater than or equal to 10. (Grab food items with a price >= 10 only, then average).
 
     ```
-        Type    |      avg_price
+           Type    |      avg_price
        ------------+---------------------
-       french     | 12.6951566951566952
-       chinese    | 12.6651053864168618
-       japanese   | 12.6416666666666667
-       mexican    | 12.6227848101265823
-       german     | 12.5452196382428941
-       vietnamese | 12.4921465968586387
-       italian    | 12.4698492462311558
+        french     | 12.6951566951566952
+        chinese    | 12.6651053864168618
+       ...
     ```
 
 Joins
@@ -308,17 +210,15 @@ Joins
 
 Now we are ready to do operations on multiple tables. If you remember [joins](http://www.tutorialspoint.com/postgresql/postgresql_using_joins.htm), they allow us to perform aggregate operations on multiple tables. These results will easily get complicated so we should take care to understand what joins are, how each one works on different tables, and how to structure the query so we only return what we need.
 
-1. Let's start by answering the question, _"How many meals did each user buy?"_
- 
-We will need to perform a `JOIN` on the both the `Event` and `Meal` tables to answer this question.
+1. We'd like to answer the question, _"How many meals did each user buy?"_
+     
+    We will need to perform a `JOIN` on the both the `Event` and `Meal` tables.
 
-2. First, we want to restrict our query to focus on users that actually purchased something. We can do this by [filtering](http://www.techonthenet.com/sql/where.php) the rows to return where the Event type is `bought`.
- 
-3. Next, `JOIN ` the users and meal tables on their common `id` and `GROUP BY` User id.
+    First, we want to restrict our query to focus on users that actually purchased something. We can do this by [filtering](http://www.techonthenet.com/sql/where.php) the rows to return where the Event type is `bought`.
+     
+    Next, `JOIN` the users and meal tables on their common `id` and `GROUP BY` User id.
 
-4. Combine those queries and your answer should look like this:
-
-    Note that your output only needs to be one result.
+    You should get something like this:
 
     ```
        id  | count
