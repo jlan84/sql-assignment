@@ -326,7 +326,7 @@ start with `INNER JOIN`.
 
 Here's an example of a simple `INNER JOIN`:
 
-```
+```sql
 SELECT users.name, visits.created_at
 FROM visits
 INNER JOIN users

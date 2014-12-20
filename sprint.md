@@ -244,113 +244,49 @@ Now we are ready to do operations on multiple tables. A [JOIN](http://www.tutori
 
     You should again be able to do this *without* a where clause!
 
-4. Answer the question, _"What user from each campaign bought the most items?"_
-
-    This will be composed of a multi-table join, ranking by count of a column,  and then grouping by column value types.
-
-    ```
-    Campaign_ID | count | count
-    -------------+-------+-------
-    PI          |   532 |   532
-    (1 row)
-    ```
-
 *Phew!* If you've made it this far, congratulations! You're ready to move on to subqueries.
 
 Subqueries
 ================================
+In a [subquery](http://www.postgresql.org/docs/8.1/static/functions-subquery.html), you have a select statement imbedded in another select statement.
 
-Here is an example of a [subquery](http://www.postgresql.org/docs/8.1/static/functions-subquery.html):
+1. Write a query to get meals that are above the average meal price.
 
-```
- SELECT cost1,
-        quantity_1,
-        cost_2,
-        quantity_2
-        total_1 + total_2 as total_3
- FROM (
-     SELECT cost_1,
-            quantity_1,
-            cost_2,
-            quantity_2,
-            (cost_1 * quantity_1) AS total_1,
-            (cost_2 * quantity_2) AS total_2
-     FROM data
- ) t
-```
+    Start by writing a query to get the average meal price. Then write a query where you put `price > (SELECT ...)` (that select statement should return the average price).
 
-There is a lot going on here. Take a moment to read and thorougly understand [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases). Try a few subquiries, experiment.
+2. Write a query to get the meals that are above the average meal price *for that type*.
 
-In short, an alias renames a column using the `AS` clause. This also allows us to create temporary columns aka derived attributes.
+    Here you'll need to use a join. First write a query that gets the average meal price for each type. Then join with that table to get ones that are larger than the average price for that meal. Your query should look something like this:
 
-We are going to use this to create a report of meals that are greater than the average price for each category.
-
-1. Identify items above the average price for the column.
-
-2. From there, count the number of meals per type that are above the average price.
-This will allow us to identify meals that might be slightly more profitable.
-
-3. Now do the same thing for anything less than the mean, and do a count on all items that are below the mean price per meal type.
-
-4. Count the number of items by type that are greater than the avg. Your output should look like below:
-
-    ```
-        Type    | count
-    ------------+-------
-     mexican    |   340
-     french     |   351
-     japanese   |   360
-     italian    |   398
-     chinese    |   369
-     vietnamese |   382
-     german     |   316
-    (7 rows)
+    ```sql
+    SELECT meals.*
+    FROM meals
+    JOIN (SELECT ...) average
+    ON ...
     ```
 
-3. Now calculate the columnwise percentage of users from each service. You will need to use [GROUP BY](http://stackoverflow.com/questions/6207224/calculcating-percentages-with-group-by-query).
+    Note that you need to fill in the select statement that will get the average meal price for each type. We *alias* this table and give it the name `average` (you can include the `AS` keyword, but it doesn't matter).
+
+3. Modify the above query to give a count of the number of meals per type that are above the average price.
+
+4. Calculate the percentage of users which come from each service. This query will look similar to #2 from aggregation functions, except you have to divide by the total number of users.
+
+    Like with many programming languages, dividing an int by an int yields an int, and you will get 0 instead of something like 0.54. You can deal with this by casting one of the values as a real like this: `CAST (value AS REAL)`
+
+    You should get a result like this:
+
+    ```
+     campaign_id |      percent
+    -------------+-------------------
+     RE          | 0.156046343229544
+     FB          | 0.396813902968863
+     TW          | 0.340695148443157
+     PI          | 0.106444605358436
+    (4 rows)
+    ```
 
 Extra Credit
 ========================
+1. Answer the question, _"What user from each campaign bought the most items?"_
 
-Often times when running a web business you are not interested in simply optimizing a users visit, but rather in optimizing the entire lifetime of visits by a user.  This is typically referred to as Customer lifetime value (CLV).
-
-> In marketing, customer lifetime value (CLV), lifetime customer value (LCV), or user lifetime value (LTV) is a prediction of the net profit attributed to the entire future relationship with a customer.
-
-So far we have used pretty standard SQL features/queries, but now we get to really experience the power of Postgres.  Postgres has many nice advanced analytical features that other databases do not support.  It is for that reason that many data scientists choose Postgres as their tool of choice for analysis.
-
-* [Postgres: The Bits You Haven't Found](http://postgres-bits.herokuapp.com/#1)
-* [7 Handy SQL features for Data Scientists](http://blog.yhathq.com/posts/sql-for-data-scientists.html)
-
-### Moving Window
-
-Now we will be getting in to moving window based time series analysis. Many questions asked in todays' work environment often involve doing monthly status reports. In an e-commerce business we typically want to know the likelihoods of certain events or perhaps an average price over time.
-
-Using [Window functions](http://www.postgresql.org/docs/9.1/static/tutorial-window.html) and [Date/Time functions](http://www.postgresql.org/docs/8.4/static/functions-datetime.html) we will first compute some additional metrics to guide our analysis:
-
-1. The number of users created on a given month.
-
-2. The number of times visited per month.
-
-3. The average time between user signups
-
-3. The average # of meals bought per month.
-
-4. The average revenue per month (meals * price of meal).
-
-### Getting Specific!
-
-So far we have computed some interesting _global_ statistics on monthly meals and revenue.  But like all things in life, not everything is created equal.  We have begun to suspect that certain users are much more valuable than others, and considering that it cost different amount to market on Facebook vs. Twitter, etc. we want to adjust our monthly marketing spend on each service to be proportional to how valuable the users that come from that service are.
-
-Recompute the above statistics according to the referrer:
-
-1. The number of users created on a given month from each referrer.
-
-2. Average # of meals bought per month from each referrer.
-
-3. Average monthly revenue by referrer (i.e. how valuable is a user from Facebook?)
-
-We unfortunately have not been good data scientists and have not recorded when users leave our service.  Because of this we cannot know the average lifetime of a user, we only know when they have signed up.  Let this be a lesson to always remember everything.  We will comeback to our CLV calculation in a later sprint, but we have gotten a head-start on our analysis at least by computing some other interesting and useful metrics.
-
-Extra Tutorial:
-========================
-http://sqlzoo.net/wiki/SELECT_within_SELECT_Tutorial
+    It will be helpful to create a temporary table that contains the counts of the number of items each user bought. You can create a table like this: `CREATE TABLE mytable AS SELECT...`
