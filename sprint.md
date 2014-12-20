@@ -167,93 +167,84 @@ Your output should look something like:
     (6 rows)
     ```
 
-7. We can always rename columns that we select by doing `COUNT(*) AS total_count`. This is called [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases). Write a query to get the average price for each type and name the average column `avg_price`.
-
-    You output should look like this:
+7. It's often helpful for us to give our own names to columns. We can always rename columns that we select by doing `AVG(price) AS avg_price`. This is called [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases). Alias all the above columns so that your table looks like this:
 
     ```
-        type    |    average_price
-    ------------+---------------------
-     mexican    |  9.6975945017182131
-     french     | 11.5420000000000000
+        type    |      avg_price      | min_price | max_price
+    ------------+---------------------+-----------+-----------
+     mexican    |  9.6975945017182131 |         6 |        13
     ...
     ```
 
-Intervals, Ranges, and sorting
+8. Maybe you only want to consider the meals which occur in the first quarter (January through March). Use `date_part` to get the month like this: `date_part('month', dt)`. Add a `WHERE` clause to the above query to consider only meals in the first quarter of 2013 (month<=3 and year=2013).
+
+9. There are also scenarios where you'd want to group by two columns. Modify the above query so that we get the aggregate values for each month and type. You'll need to add the month to both the select statement and the group by statement.
+
+    It'll be helfpul to *alias* the month column and give it a name like `month` so you don't have to call the `date_time` function again in the `GROUP BY` clause.
+
+    Your result should look like this:
+
+    ```
+        type    | month |      avg_price      | min_price | max_price
+    ------------+-------+---------------------+-----------+-----------
+     italian    |     2 | 11.2666666666666667 |         7 |        16
+     chinese    |     1 | 11.2307692307692308 |         8 |        13
+    ...
+    ```
+
+10. From the `events` table, write a query that gets the total number of buys, likes and shares for each meal id. To avoid having to do this as three separate queries you can do the count of the number of buys like this: `SUM(CASE WHEN event='bought' THEN 1 ELSE 0)`.
+
+Sorting
 ==========================================
 
-1. Using the previous query, let's answer the question on what meal type
-   can be the most profitable. Using the [ORDER BY](http://www.postgresqltutorial.com/postgresql-order-by/) operator, sort the rows in descending order by average. This will allow us to understand how to rank by mean meal price. One important thing to understand is the proper use of [aliasing](http://stackoverflow.com/questions/15413735/postgresql-help-me-figure-out-how-to-use-table-aliases) so that the averages created in the `SELECT` statement are available to the `ORDER BY` clause.
+1. Let's start with a query which gets the average price for each type. It will be helfpul to alias the average price column as 'avg_price'.
 
-    Your output should look like:
+2. To make it easier to read, sort the results by the `type` column. You can do this with an [ORDER BY](http://www.postgresqltutorial.com/postgresql-order-by/) clause.
 
-    ```
-           Type    |      avg_price
-       ------------+---------------------
-        chinese    | 10.2047244094488189
-        german     | 10.1027496382054993
-       ...
-    ```
+3. Now return the same table again, except this time order by the price in descending order (add the `DESC` keyword).
 
-2. Next, let's experiment with ranges and intervals. Again, get the average price per meal type and this time, restrict the query to only average rows with a food type price greater than or equal to 10. (Grab food items with a price >= 10 only, then average).
+3. Sometimes we want to sort by two columns. Write a query to get all the meals, but sort by the type and then by the price. You should have an order by clause that looks something like this: `ORDER BY col1, col2`.
 
-    ```
-           Type    |      avg_price
-       ------------+---------------------
-        french     | 12.6951566951566952
-        chinese    | 12.6651053864168618
-       ...
-    ```
+4. For shorthand, people sometimes use numbers to refer to the columns in their order by or group by clauses. The numbers refer to the order they are in the select statement. For instance `SELECT type, dt FROM meals ORDER BY 1;` would order the resutls by the `type` column.
 
 Joins
 =========================
 
-Now we are ready to do operations on multiple tables. If you remember [joins](http://www.tutorialspoint.com/postgresql/postgresql_using_joins.htm), they allow us to perform aggregate operations on multiple tables. These results will easily get complicated so we should take care to understand what joins are, how each one works on different tables, and how to structure the query so we only return what we need.
+Now we are ready to do operations on multiple tables. A [JOIN](http://www.tutorialspoint.com/postgresql/postgresql_using_joins.htm) allows us to combine multiple tables.
 
-1. We'd like to answer the question, _"How many meals did each user buy?"_
-     
-    We will need to perform a `JOIN` on the both the `Event` and `Meal` tables.
-
-    First, we want to restrict our query to focus on users that actually purchased something. We can do this by [filtering](http://www.techonthenet.com/sql/where.php) the rows to return where the Event type is `bought`.
-     
-    Next, `JOIN` the users and meal tables on their common `id` and `GROUP BY` User id.
-
-    You should get something like this:
+1. Write a query to get one table that joins the `events` table with the `users` table (on `userid`) to create the following table.
 
     ```
-       id  | count
-     ------+-------
-      1548 |     1
-       106 |     4
-      1513 |     1
-      2125 |     1
-       276 |     2
-       606 |     2
-      1439 |     2
-      1728 |     2
-      2285 |     2
-      1676 |     1
-       807 |     1
-      1231 |     2
-       151 |     1
-      1692 |     1
-       253 |     2
-       852 |     1
-       437 |     2
-      4875 |     1
-       549 |     3
-       268 |     1
-       310 |     3
-      2055 |     1
-       etc.
+     userid | campaign_id | meal_id | event
+    --------+-------------+---------+--------
+          3 | FB          |      18 | bought
+          7 | PI          |       1 | like
+         10 | TW          |      29 | bought
+         11 | RE          |      19 | share
+         15 | RE          |      33 | like
+    ...
     ```
 
-Joins and aggregations
-===========================
+2. Also include information about the meal, like the `type` and the `price`. Only include the `bought` events. The result should look like this:
 
-Now let's start doing some aggregate analysis.
+    ```
+     userid | campaign_id | meal_id |    type    | price
+    --------+-------------+---------+------------+-------
+          3 | FB          |      18 | french     |     9
+         10 | TW          |      29 | italian    |    15
+         18 | TW          |      40 | japanese   |    13
+         22 | RE          |      23 | mexican    |    12
+         25 | FB          |       8 | french     |    14
+    ...
+    ```
 
-1. Answer the question, _"What user from each campaign bought the most items?"_
+    If your results are different, make sure you filtered it so you only got the `bought` events. You should be able to do this *without* using a where clause, only on clause(s)!
+
+3. Write a query to get how many of each type of meal were bought.
+
+    You should again be able to do this *without* a where clause!
+
+4. Answer the question, _"What user from each campaign bought the most items?"_
 
     This will be composed of a multi-table join, ranking by count of a column,  and then grouping by column value types.
 
