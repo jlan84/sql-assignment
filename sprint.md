@@ -290,3 +290,17 @@ Extra Credit
 1. Answer the question, _"What user from each campaign bought the most items?"_
 
     It will be helpful to create a temporary table that contains the counts of the number of items each user bought. You can create a table like this: `CREATE TABLE mytable AS SELECT...`
+
+2. For each day, get the total number of users who have registered as of that day. You should get a table that has a `dt` and a `cnt` column.
+
+    *Hint:* This is a *self join*
+
+3. What day of the week gets meals with the most buys?
+
+4. Which month had the highest percent of users who visited the site purchase a meal?
+
+5. Find all the meals that are above the average price of the previous 7 days.
+
+6. What percent of users have shared more meals than they have liked?
+
+7. For every day, count the number of users who have visited the site and done no action.
