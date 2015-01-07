@@ -304,3 +304,5 @@ Extra Credit
 6. What percent of users have shared more meals than they have liked?
 
 7. For every day, count the number of users who have visited the site and done no action.
+
+8. Find all the days with a greater than average number of meals.
