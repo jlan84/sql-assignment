@@ -291,7 +291,7 @@ Extra Credit
 
     It will be helpful to create a temporary table that contains the counts of the number of items each user bought. You can create a table like this: `CREATE TABLE mytable AS SELECT...`
 
-2. For each day, get the total number of users who have registered as of that day. You should get a table that has a `dt` and a `cnt` column.
+2. For each day, get the total number of users who have registered as of that day. You should get a table that has a `dt` and a `cnt` column. This is a cumulative sum.
 
     *Hint:* This is a *self join*
 
