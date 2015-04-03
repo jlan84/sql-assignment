@@ -29,7 +29,7 @@ While Postgres adheres to the ANSI 92 SQL standard, there are a few extra functi
 
 You'll be using the interactive SQL shell from the console for most of your work. Once you have a satifactory answer to a question, remember to copy your SQL query to a text file for safe keeping. You'll submit all your finished queries at the end of the day as a pull request. Remember: _Commit Early, Commit Often_
 
-Extra Credit:
+## Extra Credit:
 
 Go through some useful SQL examples for data science from yhat's blog: [SQL for Data Scientists](http://blog.yhathq.com/posts/sql-for-data-scientists.html)
 
