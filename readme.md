@@ -19,14 +19,15 @@ First off, read through [SQL for Data Scientists](http://bensresearch.com/downlo
 
 We will be using [Postgres SQL](http://www.postgresql.org/) in this exercise, a flavor of SQL that is quickly becoming _de rigueur_ in web startups and big companies alike. Postgres is fast, scales well, and comes with a bunch of useful extensions such as [PostGIS](http://postgis.net/) for working with geographical data.
 
-
-
 While Postgres adheres to the ANSI 92 SQL standard, there are a few extra functions implemented that we'll be using in later sprints. Check out the the Postgres [tutorial](http://www.postgresqltutorial.com/) for an overview of the provided functions. This will give you a basic overview of the syntax and will be your reference going forward.
 
-
-
 ## Assignment
-The exercise for today is contained in the [sprint.md](https://github.com/zipfian/sql/blob/master/sprint.md) file. You'll be using the interactive SQL shell from the console for most of your work. Once you have a satifactory answer to a question, remember to copy your SQL query to a text file for safe keeping. You'll submit all your finished queries at the end of the day as a pull request. Remember: _Commit Early, Commit Often_
+
+* [morning exercise](morning.md)
+* [afternoon exercise](afternoon.md)
+* notes: [1](notes.md) and [2](advanced_notes.md)
+
+You'll be using the interactive SQL shell from the console for most of your work. Once you have a satifactory answer to a question, remember to copy your SQL query to a text file for safe keeping. You'll submit all your finished queries at the end of the day as a pull request. Remember: _Commit Early, Commit Often_
 
 Extra Credit:
 
