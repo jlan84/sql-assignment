@@ -76,7 +76,7 @@ Look at some rows from every table to get an idea of what you're dealing with.
 ## Tips:
 * Take a look at the postgres [datetime documentation](http://www.postgresql.org/docs/8.4/static/datatype-datetime.html) if you're unsure how to work with the dates.
 * Try and get practice adding newlines and whitespace so that the queries are easily readable.
-* Sometimes it may be useful to create temporary tables like this: `CREATE TABLE tmp_table AS SELECT ...`.
+* Sometimes it may be useful to create temporary tables like this: `CREATE TABLE tmp_table AS SELECT ...` or use a [with query](http://www.postgresql.org/docs/9.1/static/queries-with.html).
 
 
 ## Write a SQL pipeline

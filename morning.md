@@ -305,6 +305,6 @@ Extra Credit
 
 7. For every day, count the number of users who have visited the site and done no action.
 
-8. Find all the days with a greater than average number of meals.
+8. Find all the dates with a greater than average number of meals.
 
 9. Find all the users who bought a meal before liking or sharing a meal.
