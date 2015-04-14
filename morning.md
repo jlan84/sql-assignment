@@ -28,6 +28,13 @@ Here's the [postgres docs](http://www.postgresql.org/docs/9.3/interactive/) whic
 
 To set postgres up on your personal computer, follow the following steps (for a mac).
 
+1. From the commandline run `psql` and then this command to create the database.
+
+    ```sql
+    CREATE DATABASE readychef;
+    \q
+    ```
+
 1. Install your Postgres database. The easiest way to to install the pre-build application (with an adorable icon) using the following command:
 
     ```
