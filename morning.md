@@ -43,14 +43,6 @@ Loading the database
 
 In this repo, there's a SQL dump of the data we'll be using today.
 
-1. From the commandline run `psql` and then these commands:
-
-    ```sql
-    CREATE USER postgres SUPERUSER;
-    CREATE DATABASE readychef;
-    \q
-    ```
-
 1. Navigate to where you cloned this very repository and run the following command to import the database:
 
     ```
