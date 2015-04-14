@@ -293,8 +293,6 @@ Extra Credit
 
 2. For each day, get the total number of users who have registered as of that day. You should get a table that has a `dt` and a `cnt` column. This is a cumulative sum.
 
-    *Hint:* This is a *self join*
-
 3. What day of the week gets meals with the most buys?
 
 4. Which month had the highest percent of users who visited the site purchase a meal?
