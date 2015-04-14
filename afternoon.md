@@ -11,20 +11,6 @@ You will be working with the following tables:
 * `messages`: All messages users have sent
 * `test_group`: A table for an A/B test
 
-## Setting up psql on a Mac
-
-1. Go to the home directory by running ``cd`` in the terminal
-
-2. Run ```nano .zshrc``` to open up the terminal configurations
-
-3. Push the down arrow key until you reach the end of the file and insert the following line at the end of the file
-
-   ```export PATH=/Applications/Postgres.app/Contents/Versions/9.4/bin:$PATH``` 
-
-4. Exit nano by pushing the ```Control``` and ```x``` keys
-
-5. Open a new terminal and ```psql``` 
-
 ## Connecting to the database
 
 There's a sql dump of the database in `socialmedia.sql`.
