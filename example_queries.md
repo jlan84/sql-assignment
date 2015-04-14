@@ -1,4 +1,4 @@
-## Morning
+## Part 1
 
 1. Basic use of aggregates to get the maximum and minimum
 
@@ -93,7 +93,7 @@
     GROUP BY users.userid, users.name;
     ```
 
-## Afternoon (subqueries)
+## Part 2: Subqueries
 
 1. I want to get all the users who registered on the first day.
 
