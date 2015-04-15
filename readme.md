@@ -23,7 +23,7 @@ While Postgres adheres to the ANSI 92 SQL standard, there are a few extra functi
 
 ## Assignment
 
-* [postgres setup](https://github.com/zipfian/welcome/postgres_setup.md)
+* [postgres setup](https://github.com/zipfian/welcome/blob/master/postgres_setup.md)
 * [morning exercise](morning.md)
 * [afternoon exercise](afternoon.md)
 * notes: [1](notes.md) and [2](advanced_notes.md)

@@ -15,7 +15,7 @@ Loading the database
 
 In this repo, there's a SQL dump of the data we'll be using today.
 
-1. If you are on your personal computer and haven't set up postgres yet, follow [these instructions](https://github.com/zipfian/welcome/postgres_setup.md)
+1. If you are on your personal computer and haven't set up postgres yet, follow [these instructions](https://github.com/zipfian/welcome/blob/master/postgres_setup.md)
 
 1. From the commandline run `psql` and then this command to create the database.
 
