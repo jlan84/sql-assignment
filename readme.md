@@ -23,6 +23,7 @@ While Postgres adheres to the ANSI 92 SQL standard, there are a few extra functi
 
 ## Assignment
 
+* [postgres setup](postgres_setup.md)
 * [morning exercise](morning.md)
 * [afternoon exercise](afternoon.md)
 * notes: [1](notes.md) and [2](advanced_notes.md)
