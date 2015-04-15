@@ -22,11 +22,12 @@ Goals
    9. More subqueries - a whole tutorial
    10. Extra Tutorial on selects
 
-Setting up Postgres
-================================
-Here's the [postgres docs](http://www.postgresql.org/docs/9.3/interactive/) which often prove useful for figuring stuff out.
+Loading the database
+======================
 
-To set postgres up on your personal computer, follow the following steps (for a mac).
+In this repo, there's a SQL dump of the data we'll be using today.
+
+1. If you are on your personal computer and haven't set up postgres yet, follow [these instructions](postgres_setup.md)
 
 1. From the commandline run `psql` and then this command to create the database.
 
@@ -34,21 +35,6 @@ To set postgres up on your personal computer, follow the following steps (for a 
     CREATE DATABASE readychef;
     \q
     ```
-
-1. Install your Postgres database. The easiest way to to install the pre-build application (with an adorable icon) using the following command:
-
-    ```
-    brew cask install postgres
-    ```
-
-    If you don't have homebrew, go [here](http://brew.sh/).
-
-2. After the installation is complete, use Spotlight to search for `postgres` and open the Application. It will ask you if you want to move it to the Applications folder, say "Move it"
-
-Loading the database
-======================
-
-In this repo, there's a SQL dump of the data we'll be using today.
 
 1. Navigate to where you cloned this very repository and run the following command to import the database:
 
