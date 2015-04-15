@@ -1,14 +1,3 @@
-SQL Sprint
-======================================
-
-Overview
-===================
-In this exercise, we are going to learn the basics of SQL and gain an understanding of what an [RDBMS](http://en.wikipedia.org/wiki/Relational_database_management_system) has to offer. Databases are based on a very simple idea of CRUD (Create, Read, Update, Delete). As a data scientist, your primary role will be the Read part to do some analysis.
-
-We've created a fake company called *ReadyChef* with simulated data. The database is a simulation of a user database for a food e-commerce website where users have different activities such as sharing, liking, and buying of posted meals.
-
-We are going to focus on general reporting with regards to revenue, referrals, and other basic questions you would face on the job.
-
 Goals
 ======================
    1. Explore the Database
@@ -19,8 +8,7 @@ Goals
    6. Aggregation functions: AVG
    7. Intervals, Ranges, and sorting
    8. Subqueries
-   9. More subqueries - a whole tutorial
-   10. Extra Tutorial on selects
+
 
 Loading the database
 ======================
