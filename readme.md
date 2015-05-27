@@ -23,12 +23,7 @@ While Postgres adheres to the ANSI 92 SQL standard, there are a few extra functi
 
 ## Assignment
 
-* [postgres setup](https://github.com/zipfian/welcome/blob/master/postgres_setup.md)
-* [morning exercise](morning.md)
-* [afternoon exercise](afternoon.md)
-* notes: [1](notes.md) and [2](advanced_notes.md)
-
-You'll be using the interactive SQL shell from the console for most of your work. Once you have a satifactory answer to a question, remember to copy your SQL query to a text file for safe keeping. You'll submit all your finished queries at the end of the day as a pull request. Remember: _Commit Early, Commit Often_
+The exercise for today is contained in the [sprint.md](https://github.com/zipfian/sql/blob/master/sprint.md) file. You'll be using the interactive SQL shell from the console for most of your work. Once you have a satifactory answer to a question, remember to copy your SQL query to a text file for safe keeping. You'll submit all your finished queries at the end of the day as a pull request. Remember: _Commit Early, Commit Often_
 
 ## Extra Credit:
 
