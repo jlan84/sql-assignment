@@ -94,7 +94,7 @@ that can connect it to a user in the `users` table.
 
 Here's the definition of the `visits` table:
 
-```
+```sql
 CREATE TABLE visits {
   id INTEGER PRIMARY KEY,
   created_at TIMESTAMP,
