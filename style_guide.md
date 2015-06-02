@@ -52,7 +52,7 @@ There isn't total concensus about how to do style in SQL, but here's some genera
             b.dept='shoes';
         ```
 
-1. Nested queries can get tricky. The main idea is to keep everything in the nested query at the same indentation level. Here's some examples.
+1. Nested queries can get tricky. The main idea is to keep everything in the nested query at the same indentation level. Here's an example:
 
     * Although you might be able to do the nested select all on one line.
     
@@ -75,7 +75,7 @@ There isn't total concensus about how to do style in SQL, but here's some genera
                          date>'2014-10-01')
         ORDER BY name;
         ```
-        Much easier to follow with respect to how price is calculated.
+        Much easier to follow with respect to how price is calculated for the main select clause.
         
         <br>
-        The main rule of thumb is to keep everything lined up with the `SELECT` keyword. This makes it clear what is part of the nested select and when it ends.0
+        The main rule of thumb for nested selects is to keep everything lined up with the `SELECT` keyword. This makes it clear what is part of the nested select and when it ends.0
