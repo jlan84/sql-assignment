@@ -54,15 +54,16 @@ There isn't total concensus about how to do style in SQL, but here's some genera
 
 1. Nested queries can get tricky. The main idea is to keep everything in the nested query at the same indentation level. Here's some examples.
 
-    * You might be able to do the nested select all on one line.
+    * Although you might be able to do the nested select all on one line.
     
         ```sql
         SELECT *
         FROM products
-        WHERE price=(SELECT MAX(price) FROM products);
+        WHERE price=(SELECT MAX(price) FROM products WHERE dept='shoes' AND date>'2014-10-01')
+        ORDER BY name;
         ```
 
-    * Here's what it looks like if you need multiple lines.
+    * Here's what it looks like if you use multiple lines.
     
         ```sql
         SELECT *
@@ -74,5 +75,7 @@ There isn't total concensus about how to do style in SQL, but here's some genera
                          date>'2014-10-01')
         ORDER BY name;
         ```
-
+        Much easier to follow with respect to how price is calculated.
+        
+        <br>
         The main rule of thumb is to keep everything lined up with the `SELECT` keyword. This makes it clear what is part of the nested select and when it ends.0
