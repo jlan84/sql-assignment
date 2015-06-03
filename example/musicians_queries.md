@@ -253,8 +253,19 @@ LIMIT 5;
 
 #Part 3: Complex queries with Subqueries
 
-1. ddd
-2. ddd
+1. List the name and town of birth of any performer born in the same city as James First.
+  ```sql
+  SELECT m.m_name, p.place_town 
+  FROM musician m
+  JOIN place p
+  ON m.born_in=p.place_no
+  WHERE m.born_in=
+                 (SELECT born_in
+                  FROM musician
+                  WHERE m_name='James First')
+  ;
+  ```
+2. 
 3. ddd
 
 #Part 4: Miscellaneous
@@ -273,6 +284,16 @@ LIMIT 5;
   FROM dead_brits;
   ```
 
-2. ddd
-3. ddd
+2. Postgres has what's called a **with** clause that is used to create a temporary table that will only be used for the query.
+  ```sql
+  WITH t AS
+     (SELECT *
+      FROM musician m
+      JOIN place p
+      ON m.born_in=p.place_no
+      WHERE p.place_country='England' AND m.died IS NOT NULL)
+  SELECT * 
+  FROM t;
+  ```
+
 
