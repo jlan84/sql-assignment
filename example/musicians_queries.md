@@ -245,12 +245,6 @@ LIMIT 5;
   WHERE pl.place_country='USA';
   ```
 
-5. List the different instruments played by the musicians and avg number of musicians who play the instrument.
-
-  ```sql
-  
-  ```
-
 #Part 3: Complex queries with Subqueries
 
 1. List the name and town of birth of any performer born in the same city as James First.
@@ -266,8 +260,6 @@ LIMIT 5;
                   WHERE m_name='James First')
   ;
   ```
-2. 
-3. 
 
 #Part 4: Miscellaneous
 
