@@ -254,6 +254,7 @@ LIMIT 5;
 #Part 3: Complex queries with Subqueries
 
 1. List the name and town of birth of any performer born in the same city as James First.
+
   ```sql
   SELECT m.m_name, p.place_town 
   FROM musician m
