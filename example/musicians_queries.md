@@ -197,9 +197,59 @@ LIMIT 5;
 
 #Part 2: Joins
 
-1. ddd
-2. ddd
-3. ddd
+1. Give the organiser's name of the concert in the Assembly Rooms after the first of Feb, 1997.
+
+```sql
+SELECT m.m_name
+FROM concert c
+JOIN musician m
+ON c.concert_orgniser=m.m_no
+WHERE concert_venue = 'Assembly Rooms' AND con_date > '02/01/97';
+```
+
+2. Find all the performers who played guitar or violin, were born in England, and are still alive.
+
+```sql
+SELECT m_name
+FROM musician m
+JOIN place p
+ON m.born_in=p.place_no
+WHERE p.place_country='England' AND m.died IS NULL;
+```
+
+3. List the names of musicians who have conducted concerts in USA together with the towns and dates of these concerts.
+
+```sql
+SELECT m.m_name, pl.place_town, c.con_date
+FROM musician m
+LEFT JOIN performance p
+ON m.m_no=p.conducted_by
+LEFT JOIN place pl 
+ON p.performed_in=pl.place_no
+LEFT JOIN concert c
+ON c.concert_in=pl.place_no
+WHERE pl.place_country='USA';
+```
+
+4. How many concerts have featured at least one composition by Andy Jones? List concert date, venue and the composition's title.
+
+```sql
+SELECT *
+FROM musician m
+LEFT JOIN performance p
+ON m.m_no=p.conducted_by
+LEFT JOIN place pl 
+ON p.performed_in=pl.place_no
+LEFT JOIN concert c
+ON c.concert_in=pl.place_no
+WHERE pl.place_country='USA';
+```
+
+5. List the different instruments played by the musicians and avg number of musicians who play the instrument.
+
+```sql
+
+```
 
 #Part 3: Complex queries with Subqueries
 
@@ -209,7 +259,20 @@ LIMIT 5;
 
 #Part 4: Miscellaneous
 
-1. ddd
+1. How to create a table. This can be used for testing your queries on smaller tables. It's also useful if you want to save results, or if you have a complicated query and want to make a temporary intermediary table.
+
+```sql
+CREATE TABLE dead_brits AS
+    SELECT *
+    FROM musician m
+    JOIN place p
+    ON m.born_in=p.place_no
+    WHERE p.place_country='England' AND m.died IS NOT NULL;
+
+SELECT * 
+FROM dead_brits;
+```
+
 2. ddd
 3. ddd
 
