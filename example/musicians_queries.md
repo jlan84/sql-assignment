@@ -160,25 +160,32 @@ LIMIT 5;
 ```
 ## Part 1: Basic Queries
 1. Basic use of aggregates to get the maximum and minimum date of birth
+
   ```sql
   SELECT MIN(born), MAX(born) 
   FROM musician;
   ```
+  
 2. Getting the types of instruments with counts by type of music for the performers
+
   ```sql
   SELECT perf_type, instrument, COUNT(*) AS cnt
   FROM performer
   GROUP BY perf_type, instrument
   ORDER BY perf_type, instrument;
   ```
+  
 3. Selecting the types of instruments with counts for only 'classical'
+
   ```sql
   SELECT instrument, COUNT(*) AS cnt
   FROM performer
   WHERE perf_type='classical'
   GROUP BY instrument;
   ```
+  
 4. What about if you want to condition on the aggregate variable you created
+
   ```sql
   SELECT perf_type, instrument, COUNT(*) AS cnt
   FROM performer
