@@ -267,7 +267,7 @@ LIMIT 5;
   ;
   ```
 2. 
-3. ddd
+3. 
 
 #Part 4: Miscellaneous
 
