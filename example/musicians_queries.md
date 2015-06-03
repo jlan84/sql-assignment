@@ -159,6 +159,7 @@ LIMIT 5;
       4 |       7
 ```
 ## Part 1: Basic Queries
+
 1. Basic use of aggregates to get the maximum and minimum date of birth
 
   ```sql
@@ -195,20 +196,20 @@ LIMIT 5;
   ```
 
 #Part 2: Joins
-1. 
 
-2.
-
-3.
+1. ddd
+2. ddd
+3. ddd
 
 #Part 3: Complex queries with Subqueries
-1.
 
-2.
-
-3.
+1. ddd
+2. ddd
+3. ddd
 
 #Part 4: Miscellaneous
 
-
+1. ddd
+2. ddd
+3. ddd
 
