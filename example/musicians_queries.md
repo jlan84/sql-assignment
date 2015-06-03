@@ -1,5 +1,5 @@
-#Example using musicians database on SQLZOO: http://sqlzoo.net/wiki/Musicians
-##Tables used in musicians database
+# Example using musicians database on SQLZOO: http://sqlzoo.net/wiki/Musicians
+## Tables used in musicians database
 
 ```sql
 \d
@@ -158,9 +158,50 @@ LIMIT 5;
       4 |       1
       4 |       7
 ```
+## Part 1: Basic Queries
+1. Basic use of aggregates to get the maximum and minimum date of birth
+  ```sql
+  SELECT MIN(born), MAX(born) 
+  FROM musician;
+  ```
+2. Getting the types of instruments with counts by type of music for the performers
+  ```sql
+  SELECT perf_type, instrument, COUNT(*) AS cnt
+  FROM performer
+  GROUP BY perf_type, instrument
+  ORDER BY perf_type, instrument;
+  ```
+3. Selecting the types of instruments with counts for only 'classical'
+  ```sql
+  SELECT instrument, COUNT(*) AS cnt
+  FROM performer
+  WHERE perf_type='classical'
+  GROUP BY instrument;
+  ```
+4. What about if you want to condition on the aggregate variable you created
+  ```sql
+  SELECT perf_type, instrument, COUNT(*) AS cnt
+  FROM performer
+  GROUP BY perf_type, instrument
+  HAVING COUNT(*) >= 2
+  ORDER BY perf_type;
+  ```
 
+#Part 2: Joins
+1. 
 
+2.
 
+3.
+
+#Part 3: Complex queries with Subqueries
+1.
+
+2.
+
+3.
+
+#Part 4: Miscellaneous
 
 
 
