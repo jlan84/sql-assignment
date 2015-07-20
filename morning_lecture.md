@@ -49,13 +49,12 @@ Here's an example of a database table creation specifying a `users` table with v
 fields and their data types:
 
 ```sql
-CREATE TABLE users {
-  id INTEGER PRIMARY KEY,
-  name VARCHAR(255),
-  age INTEGER,
-  city VARCHAR(255),
-  state VARCHAR(2)
-}
+CREATE TABLE CUSTOMERS (
+    id INTEGER PRIMARY KEY
+,   name VARCHAR(50)
+,   age INTEGER
+,   city VARCHAR(255)
+,   state VARCHAR(2));
 ```
 
 The data types available to you vary from system to system. These above are from
@@ -68,12 +67,11 @@ key. The primary key column is most often `id`.
 Here's an example of what this users table looks like:
 
 ```
- id | name | age | city | state 
---------------------------------
- 5  | Amy  | 33  | Los..| CA    
- 9  | Zed  | 88  | Mia..| FL    
- 4  | Ned  | 89  | Mia..| FL    
- 3  | John | 46  | San..| CA    
+ id | name  | age |     city      | state
+----+-------+-----+---------------+-------
+  1 | john  |  25 | San Francisco | CA
+  2 | becky |  30 | NYC           | NY
+  3 | sarah |  20 | Denver        | CO
 ... | 
 ```
 
@@ -95,16 +93,28 @@ that can connect it to a user in the `users` table.
 Here's the definition of the `visits` table:
 
 ```sql
-CREATE TABLE visits {
-  id INTEGER PRIMARY KEY,
-  created_at TIMESTAMP,
-  user_id INTEGER REFERENCES users(id)
-}
+CREATE TABLE VISITS (
+  id INTEGER PRIMARY KEY
+,  created_at TIMESTAMP
+,  customer_id INTEGER REFERENCES customers(id) );
 ```
 
-Here we specify not only that the `visits` table has a column called `user_id`,
-but that the column references the `id` column in the `users` table. PostgreSQL
-will treat this as a constraint and ensure that new visits have a `user_id`
+Here's an example of what this users table looks like:
+
+```
+ id |     created_at      | customer_id
+----+---------------------+-------------
+  1 | 2015-06-20 00:00:00 |           1
+  2 | 2015-07-30 00:00:00 |           1
+  3 | 2015-06-20 00:00:00 |           3
+  4 | 2015-04-09 00:00:00 |           1
+  5 | 2015-03-09 00:00:00 |           2
+... | 
+```
+
+Here we specify not only that the `visits` table has a column called `customer_id`,
+but that the column references the `id` column in the `customers` table. PostgreSQL
+will treat this as a constraint and ensure that new visits have a `customer_id`
 value that references an actual user in the database.
 
 ### Types of Relationships
@@ -112,58 +122,61 @@ value that references an actual user in the database.
 #### One-to-one
 
 For a one-to-one relationship, place the foreign key on either side of the
-relationship. 
+relationship.
 
-**Example: User and Subscription**
+**Example: Customers and Licenses**
+Licenses is a table that holds the _most recent_ driver's license number for a customer,
+because customers can only have 1 driver's license at time, it will be a one-to-one relationship.
 
+```sql
+CREATE TABLE LICENSES (
+  id INTEGER PRIMARY KEY
+, state VARCHAR(2)
+, number VARCHAR(20)
+, uploaded_at TIMESTAMP
+, customer_id INTEGER REFERENCES customers(id)
+, UNIQUE(state, number))
 ```
----subscriptions
-user_id INTEGER
+```
+SELECT * FROM licenses;
+ id | state |   number   |     uploaded_at     | customer_id
+----+-------+------------+---------------------+-------------
+  1 | CO    | DL19480284 | 2013-04-18 00:00:00 |           3
+  2 | CA    | DL19852984 | 2014-05-12 00:00:00 |           1
 ```
 
-To find the user for a particular subscription:
+To find the license for a customer:
 
 ```sql
 SELECT *
-FROM users
-WHERE id=?
-LIMIT 1 
-```
-
-To find the subscription for a user:
-
-```sql
-SELECT *
-FROM subscriptions
-WHERE user_id=?
+FROM licenses
+WHERE customer_id=?
 LIMIT 1
 ```
+**Notice** we also used a UNIQUE constraint as the last part of our CREATE TABLE statement.
+This is part of the power of SQL.  Because State and Driver's Licenses numbers should be unique,
+we can help limit data input errors by placing a UNIQUE constraint.
 
 #### One-to-many and many-to-one
 
 For a one-to-many/many-to-one relationship (they are inverses of each other),
 place the foreign key on the many side of the relationship.
 
-**Example: User and Posts**
+**Example: Customer and Visits**
 
-```
----posts
-user_id INTEGER REFERENCES users(id)
-```
-
-To find the posts for a user:
+To find the visits for a customer:
 
 ```sql
 SELECT *
-FROM posts
-WHERE user_id=?
+FROM visits
+WHERE customer_id=?
 ```
 
-To find the user for a post:
+To find details on the customer for that visit:
 
 ```sql
 SELECT *
-FROM users
+FROM customers
 WHERE id=?
 LIMIT 1
 ```
@@ -174,64 +187,66 @@ For a many-to-many relationship, create a table that contains two foreign keys,
 one to each side of the relationship. This intermediate table is often referred
 to as a **JOIN table**.
 
-**Example 1: Posts and Tags**
+**Example 1: Customers and Products**
 
-```
----post_tags
-post_id INTEGER REFERENCES posts(id)
-tag_id INTEGER REFERENCES tags(id)
-```
-
-To find the tags for a post:
+Here is our products table.  It lists all the products in the inventory.
 
 ```sql
-SELECT tags.*
-FROM tags
-JOIN post_tags
-  ON post_tags.tag_id = tags.id
-WHERE post_tags.post_id=?
+CREATE TABLE PRODUCTS (
+  id INTEGER PRIMARY KEY
+, name VARCHAR(50)
+, price FLOAT
+  );
+```
+```
+id |    name     | price
+----+-------------+-------
+  1 | soccer ball |  20.5
+  2 | iPod        |   200
+  3 | headphones  |    50
 ```
 
-To find the posts for a tag:
+How do we know which customer purchased which product?  Here is our **JOIN** table.
 
 ```sql
-SELECT posts.*
-FROM posts
-JOIN post_tags
-  ON post_tags.post_id = posts.id
-WHERE post_tags.tag_id=?
+CREATE TABLE purchases (
+     customer_id INTEGER REFERENCES customers(id)
+,    product_id INTEGER REFERENCES products(id)
+,    date TIMESTAMP
+,    quantity INTEGER );
+```
+```
+ customer_id | product_id |        date         | quantity
+-------------+------------+---------------------+----------
+           1 |          2 | 2015-07-30 00:00:00 |        2
+           2 |          3 | 2015-06-20 00:00:00 |        3
+           1 |          3 | 2015-04-09 00:00:00 |        1
 ```
 
-**Example 2: Friendships**
+**Notice**  In the customers and products tables, there are PRIMARY KEY constraints on the IDs.
+This ensures there is only 1 record for each customer and product.  We then used those keys to 
+place FOREIGN KEY constraints on the customer_id and product_id in purchases.  This ensures our
+data will only contain purchases by customers already in the database for products already in the
+database.  Any other scenario indicates our data is not correct.
 
-Let's assume friendships are one-sided so that if Alice is Bob's friend, and Bob
-is Alice's friend, then there are two entries in the friendships table for the
-double-sided friendship.
-
-```
----friendships
-in_friend_id INTEGER REFERENCES users(id)
-out_friend_id INTEGER REFERENCES users(id)
-```
-
-To find all of a user's friends:
+To find the products purchased by a customer:
 
 ```sql
-SELECT users.*
-FROM users
-JOIN friendships
-  ON friendships.out_friend_id=users.id
-WHERE friendships.in_friend_id = ?
+SELECT products.*
+FROM products
+JOIN purchases
+  ON products.id = purchases.product_id
+WHERE purchases.customer_id=?
 ```
 
-To find all the users who have friended a user:
+To find the customers who purchased a product:
 
 ```sql
-SELECT users.*
-FROM users
-JOIN friendships
-  ON friendships.in_friend_id = users.id
-WHERE friendships.out_friend_id = ?
+SELECT customers.*
+FROM customers
+JOIN purchases
+  ON customers.id = purchases.customer_id
+WHERE purchases.product_id=?
 ```
 
 ## Schema Normalization
@@ -278,18 +293,18 @@ example of a simple query:
 
 ```sql
 SELECT name, age
-FROM users
+FROM customers
 ```
 
 This query returns the name and age for every user in the `users` table.
 
 ```sql
 SELECT name, age
-FROM users
+FROM customers
 WHERE state = 'CA'
 ```
 
-This query returns the name and age for every user in the `users` table who
+This query returns the name and age for every customer in the `customers` table who
 lives in CA.
 
 ## SQL Queries
@@ -327,37 +342,117 @@ start with `INNER JOIN`.
 Here's an example of a simple `INNER JOIN`:
 
 ```sql
-SELECT users.name, visits.created_at
+SELECT customers.name, visits.created_at
 FROM visits
-INNER JOIN users
-  ON users.id = visits.user_id
+INNER JOIN customers
+  ON customers.id = visits.customer_id
 ```
 
-Each visit has a `user_id` that corresponds to the `id` column in the users
+Each visit has a `customer_id` that corresponds to the `id` column in the customeres
 table. In SQL, you specify the correspondence in the `ON` segment of the `JOIN`
 clause. 
 
-**For each match between `users.id` and `visits.user_id` that is found, a row is
-inserted into the result set.** That means that if a user has visited the site
+**For each match between `customers.id` and `visits.customer_id` that is found, a row is
+inserted into the result set.** That means that if a customer has visited the site
 multiple times, their information will be in the result set multiple times.
 
 For example, the result may look like this:
 
 ```
-users.name | visits.created_at
-------------------------------
-Bill       |  2012-10-11...
-Bill       |  2012-10-03...
-Bill       |  2012-09-07...
-Amy        |  2012-10-01...
-Amy        |  2012-10-02...
-Sally      |  2012-01-22...
+ name  |     created_at
+-------+---------------------
+ john  | 2015-06-20 00:00:00
+ john  | 2015-07-30 00:00:00
+ sarah | 2015-06-20 00:00:00
+ john  | 2015-04-09 00:00:00
+ becky | 2015-03-09 00:00:00
 ```
 
-Note how each user shows up multiple times for in the result set. This make
-sense given that each user visted the site multiple times. You'll see later in
+Note how some customers show up multiple times in the result set. This make
+sense given that some customers visted the site multiple times. You'll see later in
 this document a slightly more detailed look at how the RDBMS constructs a result
 set, including how it processes `JOIN`s.
+
+### Aggregations
+
+SQL allows you to aggregate your data set based on common keys.  To see the number of visits
+from each customer_id we would query:
+
+```sql
+SELECT customer_id, COUNT(*)
+FROM visits
+GROUP BY customer_id
+```
+
+```
+ customer_id | count
+-------------+-------
+           1 |     3
+           3 |     1
+           2 |     1
+```
+
+**Notice** The GROUP BY clause tells SQL what common factor we'd like to use to aggregate the data.
+The COUNT aggregate function tells SQL how we'd like to aggregate.
+
+When we JOIN tables we are essentially creating a new table, so we can use aggregate functions when 
+using JOINs.  To get the amount of profit from each product:
+
+```sql
+SELECT products.name, products.id, SUM(purchases.quantity * products.price) AS profit
+FROM products
+JOIN purchases 
+  ON products.id=purchases.product_id
+GROUP BY products.name, products.id
+```
+```
+    name    | id | profit
+------------+----+--------
+ iPod       |  2 |    400
+ headphones |  3 |    200
+ ```
+
+### Sorting
+
+To make the results more readable, we can sort them.  Maybe we want the customers in alphabetical order.
+
+```sql
+SELECT *
+FROM customers
+ORDER BY NAME
+```
+```
+ id | name  | age |     city      | state
+----+-------+-----+---------------+-------
+  2 | becky |  30 | NYC           | NY
+  1 | john  |  25 | San Francisco | CA
+  3 | sarah |  20 | Denver        | CO
+```
+And if we wanted them in reverse alphabetical order, we'd add the DESC keyword.
+
+```sql
+SELECT *
+FROM customers
+ORDER BY NAME DESC
+```
+```
+ id | name  | age |     city      | state
+----+-------+-----+---------------+-------
+  3 | sarah |  20 | Denver        | CO
+  1 | john  |  25 | San Francisco | CA
+  2 | becky |  30 | NYC           | NY
+  ```
+
+### SQL Order of Operations
+
+SQL does not perform operations "top to bottom".  Rather it executes statements in the following order:
+
+FROM, JOIN
+WHERE
+GROUP BY 
+HAVING
+SELECT
+ORDER BY
 
 ### `JOIN` types
 
@@ -365,15 +460,31 @@ The various `JOIN`s specify how to deal with different circumstances regarding
 the primary and foreign key matchings. 
 
 `INNER JOIN`s discard any entries that do not have a match between the keys
-specified in the `ON` clause. For example, in the above query, any user who had
+specified in the `ON` clause. For example, in the above query, any customer who had
 not visited the site will NOT be in the result set because a match would not
-have been found between the user's `id` and a visit's `user_id`.
+have been found between the customer's `id` and a visit's `customer_id`.
 
 An `LEFT OUTER JOIN` keeps all the entries in the left table regardless of
 whether a match is found in the right table. In that case, the columns
 associated with the right table for that entry will simply be `NULL`. A `RIGHT
 OUTER JOIN` is the same except it keeps all the entries in the right table
 instead of the left one.
+
+```sql
+
+SELECT c.id, l.number
+FROM customers c
+LEFT JOIN licenses l
+  ON l.customer_id = c.id
+  ```
+
+```
+ id |   number
+----+------------
+  3 | DL19480284
+  1 | DL19852984
+  2 |
+```
 
 A `FULL OUTER JOIN` will keep the rows of both tables no matter what with `NULL`
 values for ones that don't have matches.

@@ -54,6 +54,11 @@ Select statements
 ===================
 
 1. To get an understanding of the data, run a [SELECT](http://www.postgresqltutorial.com/postgresql-select/) statement on each table. Keep all the columns and limit the number of rows to 10.
+        ```sql
+        SELECT *
+        FROM EVENTS
+        LIMIT 10
+        ```
 
 2. Write a `SELECT` statement that would get just the userids.
 
@@ -165,7 +170,8 @@ Your output should look something like:
     ...
     ```
 
-10. From the `events` table, write a query that gets the total number of buys, likes and shares for each meal id. To avoid having to do this as three separate queries you can do the count of the number of buys like this: `SUM(CASE WHEN event='bought' THEN 1 ELSE 0 END)`.
+10. From the `events` table, write a query that gets the total number of buys, likes and shares for each meal id. 
+_Extra_: To avoid having to do this as three separate queries you can do the count of the number of buys like this: `SUM(CASE WHEN event='bought' THEN 1 ELSE 0 END)`.
 
 Sorting
 ==========================================
@@ -178,7 +184,7 @@ Sorting
 
 3. Sometimes we want to sort by two columns. Write a query to get all the meals, but sort by the type and then by the price. You should have an order by clause that looks something like this: `ORDER BY col1, col2`.
 
-4. For shorthand, people sometimes use numbers to refer to the columns in their order by or group by clauses. The numbers refer to the order they are in the select statement. For instance `SELECT type, dt FROM meals ORDER BY 1;` would order the resutls by the `type` column.
+4. For shorthand, people sometimes use numbers to refer to the columns in their order by or group by clauses. The numbers refer to the order they are in the select statement. For instance `SELECT type, dt FROM meals ORDER BY 1;` would order the results by the `type` column.
 
 Joins
 =========================
@@ -219,6 +225,9 @@ Now we are ready to do operations on multiple tables. A [JOIN](http://www.tutori
 
 *Phew!* If you've made it this far, congratulations! You're ready to move on to subqueries.
 
+Extra Credit (pt. 1)
+========================
+
 Subqueries
 ================================
 In a [subquery](http://www.postgresql.org/docs/8.1/static/functions-subquery.html), you have a select statement imbedded in another select statement.
@@ -258,7 +267,7 @@ In a [subquery](http://www.postgresql.org/docs/8.1/static/functions-subquery.htm
     (4 rows)
     ```
 
-Extra Credit
+Extra Credit (pt. 2)
 ========================
 1. Answer the question, _"What user from each campaign bought the most items?"_
 
