@@ -1,4 +1,4 @@
-# Structured Query Lanuage (SQL)
+# Structured Query Language (SQL)
 
 ## Learning Objectives
 
@@ -11,7 +11,7 @@
 
 ## Introduction
 
-Structured Query Language (SQL for short) is the bread and butter of a working data scientist. Whether generating reports, grabbing data for a machine learning model, or implementing a data product — SQL is one of the most important skills to master during this course. In this sprint, we'll be gaining familiarity with SQL fundementals. We'll start with basic querying, and move on to joins, aggregations, subqueries, and working with sets. 
+Structured Query Language (SQL for short) is the bread and butter of a working data scientist. Whether generating reports, grabbing data for a machine learning model, or implementing a data product — SQL is one of the most important skills to master during this course. In this sprint, we'll be gaining familiarity with SQL fundamentals. We'll start with basic querying, and move on to joins, aggregations, subqueries, and working with sets. 
 
 ## Primer
 
@@ -23,7 +23,7 @@ While Postgres adheres to the ANSI 92 SQL standard, there are a few extra functi
 
 ## Assignment
 
-The exercise for today is contained in the [individual.md](individual.md) and [pair.md](pair.md) files. You'll be using the interactive SQL shell from the console for most of your work. Once you have a satifactory answer to a question, remember to copy your SQL query to a text file for safe keeping. You'll submit all your finished queries at the end of the day as a pull request. Remember: _Commit Early, Commit Often_
+The exercise for today is contained in the [individual.md](individual.md) and [pair.md](pair.md) files. You'll be using the interactive SQL shell from the console for most of your work. Once you have a satisfactory answer to a question, remember to copy your SQL query to a text file for safe keeping. You'll submit all your finished queries at the end of the day as a pull request. Remember: _Commit Early, Commit Often_
 
 ## Extra Credit:
 
@@ -36,7 +36,7 @@ Go through some useful SQL examples for data science from yhat's blog: [SQL for 
 * [Postgres Docs](http://www.postgresql.org/docs/7.4/static/tutorial.html)
 * [Postgres Guide](http://postgresguide.com/)
 * [Statistics in SQL](https://github.com/tlevine/sql-statistics)
-* [A Gentle Introduction to SQL Using SQLite](https://github.com/zipfan/SQL-Tutorial)
+* [A Gentle Introduction to SQL Using SQLite](https://github.com/zipfian/SQL-Tutorial)
 * [The fast-track, hands-on, no-nonsense introduction to SQL](https://github.com/dserban/WebDevCourseMaterials/tree/master/1-intro-to-sql)
 * [Intro to SQL](http://bensresearch.com/downloads/SQL.pdf)
 
