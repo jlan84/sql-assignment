@@ -16,7 +16,7 @@ There isn't total concensus about how to do style in SQL, but here's some genera
     SELECT * FROM mytable;
     ```
 
-1. If your query is running long, or is just a little unreadable, here are ways of break it down:
+1. If your query is running long, or is just a little unreadable, here are ways of breaking it down:
 
     * Break your query so that each of `SELECT`, `FROM`, `JOIN`, `ON`, `WHERE`, `GROUP BY`, `ORDER BY` are each on their own line.
     
@@ -78,4 +78,4 @@ There isn't total concensus about how to do style in SQL, but here's some genera
         Much easier to follow with respect to how price is calculated for the main select clause.
         
         <br>
-        The main rule of thumb for nested selects is to keep everything lined up with the `SELECT` keyword. This makes it clear what is part of the nested select and when it ends.0
+        The main rule of thumb for nested selects is to keep everything lined up with the `SELECT` keyword. This makes it clear what is part of the nested select and when it ends.
