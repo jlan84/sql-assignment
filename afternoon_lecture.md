@@ -24,20 +24,21 @@ JOIN customers
 Let's say there's a mistake in our database and some products are in the purchase table but not in the products table. With the above inner join query, they would just end up being excluded. An inner join only includes entries which are in both tables.
 
 _Table with mistakes_
-```
+```sql
 CREATE TABLE purchases_no_key (
-    customer_id INTEGER
-,    product_id INTEGER
-,    date TIMESTAMP
-,    quantity INTEGER);
+  	id INTEGER PRIMARY KEY
+,   customer_id INTEGER
+,   product_id INTEGER
+,   date TIMESTAMP
+,   quantity INTEGER);
 
-INSERT INTO purchases_no_key ( customer_id, product_id, date, quantity) VALUES
-    (1, 2, '2015-07-30', 2)
-,   (2, 4, '2015-06-20', 3)
-,   (1, 3, '2015-04-09', 1);
+INSERT INTO purchases_no_key ( id, customer_id, product_id, date, quantity) VALUES
+    (1, 1, 2, '2015-07-30', 2)
+,   (2, 2, 4, '2015-06-20', 3)
+,   (3, 1, 3, '2015-04-09', 1);
 ```
 
-We can insure all records are included in our result by using an *outer join*.
+We can ensure all records are included in our result by using an *outer join*.
 
 ```sql
 SELECT customers.name AS cust_name, products.name AS prod_name, date, quantity
@@ -66,8 +67,8 @@ WHERE products.name IS NULL;
 Even better, we can create the Purchases table with a FOREIGN KEY constraint to ensure that all customer and product ids are in their respective tables.  If you try the below, you will receive an error:
 
 ```sql
-INSERT INTO purchases ( customer_id, product_id, date, quantity) VALUES
-   (2, 4, '2015-06-20', 3);
+INSERT INTO purchases ( id, customer_id, product_id, date, quantity) VALUES
+   (4, 2, 4, '2015-06-20', 3);
 
 ERROR:  insert or update on table "purchases" violates foreign key constraint "purchases_product_id_fkey"
 DETAIL:  Key (product_id)=(4) is not present in table "products".
