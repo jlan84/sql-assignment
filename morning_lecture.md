@@ -209,18 +209,19 @@ id |    name     | price
 How do we know which customer purchased which product?  Here is our **JOIN** table.
 
 ```sql
-CREATE TABLE purchases (
-     customer_id INTEGER REFERENCES customers(id)
-,    product_id INTEGER REFERENCES products(id)
-,    date TIMESTAMP
-,    quantity INTEGER );
+CREATE TABLE PURCHASES (
+  	id INTEGER PRIMARY KEY
+,   customer_id INTEGER REFERENCES customers(id)
+,   product_id INTEGER REFERENCES products(id)
+,   date TIMESTAMP
+,   quantity INTEGER );
 ```
 ```
- customer_id | product_id |        date         | quantity
--------------+------------+---------------------+----------
-           1 |          2 | 2015-07-30 00:00:00 |        2
-           2 |          3 | 2015-06-20 00:00:00 |        3
-           1 |          3 | 2015-04-09 00:00:00 |        1
+ id | customer_id | product_id |        date         | quantity
+----+-------------+------------+---------------------+----------
+  1 |           1 |          2 | 2015-07-30 00:00:00 |        2
+  2 |           2 |          3 | 2015-06-20 00:00:00 |        3
+  3 |           1 |          3 | 2015-04-09 00:00:00 |        1
 ```
 
 **Notice**  In the customers and products tables, there are PRIMARY KEY constraints on the IDs.
