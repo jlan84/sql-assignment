@@ -99,7 +99,7 @@ CREATE TABLE VISITS (
 ,  customer_id INTEGER REFERENCES customers(id) );
 ```
 
-Here's an example of what this users table looks like:
+Here's an example of what this visits table looks like:
 
 ```
  id |     created_at      | customer_id
