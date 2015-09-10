@@ -1,17 +1,5 @@
 # Databases and SQL
 
-## Why learn RDBMS/SQL?
-
-RDBMS = Relational Database Management System
-SQL = Structured Query Language
-
-SQL is everywhere. It will often be the tool between you and the data you want. The majority of businesses store their data in a RDBMS and use SQL or SQL-like tools to access it. The combination is exceptionally good at efficiently storing complicated data sets while allowing for efficient information retrieval.
-
-Data is stored in an SQL server, usually connected to remotely. For the exercises and examples, we'll be locally hosting our database. This is somewhat atypical of what you'll experience in the field.
-
-Example:
-Web front end <----> SQL Server <----> Data Queries
-
 ## Data Persistence
 
 The most common form of data persistence is the flat file. You open up a text
@@ -49,18 +37,15 @@ the scope of this document (and this class), but feel free to reference the
 resources at the bottom of this document if you're interested in learning more
 about the underlying theory of relational databases.*
 
-*Second Note: there are non-relational databases (NoSQL/MongoDB, etc.) that store data with different contraints and mechanisms for relationships between data subsets. We'll touch on these later in the course.*
-
 ## The RDBMS Data Model
 
-Relational databases have a **schema** that defines the structure of the data. It's set when the database is created and is difficult to change later.
-
+Relational databases have a **schema** that defines the structure of the data.
 Each database is composed of a number of user-defined **tables**, each with
 **columns** and **rows**. Each column is of a certain **data type** such as
 integer, string, or date. Each row is an entry in the table with data for each
 column of that table.
 
-Here's an example of a database table creation specifying a `customers` table with various
+Here's an example of a database table creation specifying a `users` table with various
 fields and their data types:
 
 ```sql
@@ -79,7 +64,7 @@ A **primary key** is a column in a table that uniquely identifies that entry. No
 two rows in the same table can share a value for a column specified as primary
 key. The primary key column is most often `id`.
 
-Here's an example of what this customers table looks like:
+Here's an example of what this users table looks like:
 
 ```
  id | name  | age |     city      | state
@@ -99,11 +84,11 @@ That foreign entry could be in the same table or in some other table. Foreign
 keys are how relations are modeled in relational databases.
 
 For example, let's say there is another table that contains data for each visit
-to our website. Each time a customer visits the site, a row is created and inserted
+to our website. Each time a user visits the site, a row is created and inserted
 into the `visits` table. We'd like to maintain some data that indicates which
-visit is associated with which customer (so that we could later, for example, find
-the customers who visited our site the most). Each visit then will have a `customer_id`
-that can connect it to a customer in the `customers` table.
+visit is associated with which user (so that we could later, for example, find
+the users who visited our site the most). Each visit then will have a `user_id`
+that can connect it to a user in the `users` table.
 
 Here's the definition of the `visits` table:
 
@@ -130,7 +115,7 @@ Here's an example of what this visits table looks like:
 Here we specify not only that the `visits` table has a column called `customer_id`,
 but that the column references the `id` column in the `customers` table. PostgreSQL
 will treat this as a constraint and ensure that new visits have a `customer_id`
-value that references an actual customer in the database.
+value that references an actual user in the database.
 
 ### Types of Relationships
 
@@ -273,11 +258,11 @@ with relations between data. As you saw above, when you want to relate data to
 each other, use a simple foreign key - that's the smallest piece of information
 that you can keep about another entry.
 
-As an example, each post has an author, which is an entry in the `customers` table.
-In a fully normalized schema, the post entry would have a `customer_id` which would
-relate the post to a customer. A denormalized way of doing this would be to have a
+As an example, each post has an author, which is an entry in the `users` table.
+In a fully normalized schema, the post entry would have a `user_id` which would
+relate the post to a user. A denormalized way of doing this would be to have a
 column in the `posts` table called `author_name`, which would duplicate the
-`name` column in the `customers` table. 
+`name` column in the `users` table. 
 
 Normalization is largely about reducing redundancy. The cost is that some
 queries will take longer to run because you will have to look up additional
@@ -312,7 +297,7 @@ SELECT name, age
 FROM customers
 ```
 
-This query returns the name and age for every customer in the `customers` table.
+This query returns the name and age for every user in the `users` table.
 
 ```sql
 SELECT name, age
@@ -364,8 +349,6 @@ INNER JOIN customers
   ON customers.id = visits.customer_id
 ```
 
-![inner_join](https://cloud.githubusercontent.com/assets/1425450/9778836/9f669cae-572a-11e5-9c96-98b59a930b7d.png)
-
 Each visit has a `customer_id` that corresponds to the `id` column in the customeres
 table. In SQL, you specify the correspondence in the `ON` segment of the `JOIN`
 clause. 
@@ -414,17 +397,17 @@ GROUP BY customer_id
 The COUNT aggregate function tells SQL how we'd like to aggregate.
 
 When we JOIN tables we are essentially creating a new table, so we can use aggregate functions when 
-using JOINs.  To get the amount of revenue from each product:
+using JOINs.  To get the amount of profit from each product:
 
 ```sql
-SELECT products.name, products.id, SUM(purchases.quantity * products.price) AS revenue
+SELECT products.name, products.id, SUM(purchases.quantity * products.price) AS profit
 FROM products
 JOIN purchases 
   ON products.id=purchases.product_id
 GROUP BY products.name, products.id
 ```
 ```
-    name    | id | revenue
+    name    | id | profit
 ------------+----+--------
  iPod       |  2 |    400
  headphones |  3 |    200
@@ -465,12 +448,12 @@ ORDER BY NAME DESC
 
 SQL does not perform operations "top to bottom".  Rather it executes statements in the following order:
 
-1. **FROM**, **JOIN**: first the product of all tables is formed
-2. **WHERE**: the where clause is used to filter rows not satisfying search conditions
-3. **GROUP BY** + (**COUNT**, **SUM**, etc): rows are grouped using the columns in the group by clause and the aggregation functions are applied
-4. **HAVING**: like the **WHERE** clause, but can be applied after aggregation
-5. **SELECT**: the targeted list of columns are evaluated and returned
-6. **ORDER BY**: the resulting rows are sorted
+FROM, JOIN
+WHERE
+GROUP BY 
+HAVING
+SELECT
+ORDER BY
 
 ### `JOIN` types
 
@@ -482,17 +465,11 @@ specified in the `ON` clause. For example, in the above query, any customer who 
 not visited the site will NOT be in the result set because a match would not
 have been found between the customer's `id` and a visit's `customer_id`.
 
-![inner_join](https://cloud.githubusercontent.com/assets/1425450/9778836/9f669cae-572a-11e5-9c96-98b59a930b7d.png)
-
 An `LEFT OUTER JOIN` keeps all the entries in the left table regardless of
 whether a match is found in the right table. In that case, the columns
 associated with the right table for that entry will simply be `NULL`. A `RIGHT
 OUTER JOIN` is the same except it keeps all the entries in the right table
 instead of the left one.
-
-![left_join](https://cloud.githubusercontent.com/assets/1425450/9778839/9f69bbd2-572a-11e5-9b13-7b2c2d7a04fb.png)
-
-![right_join](https://cloud.githubusercontent.com/assets/1425450/9778838/9f692884-572a-11e5-8da7-db3de4ddf80b.png)
 
 ```sql
 
@@ -512,8 +489,6 @@ LEFT JOIN licenses l
 
 A `FULL OUTER JOIN` will keep the rows of both tables no matter what with `NULL`
 values for ones that don't have matches.
-
-![full_outer_join](https://cloud.githubusercontent.com/assets/1425450/9778837/9f66b90a-572a-11e5-9d29-2b6c817cc7ec.png)
 
 
 ```
