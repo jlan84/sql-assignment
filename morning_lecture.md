@@ -3,6 +3,7 @@
 ## Why learn RDBMS/SQL?
 
 RDBMS = Relational Database Management System
+
 SQL = Structured Query Language
 
 SQL is everywhere. It will often be the tool between you and the data you want. The majority of businesses store their data in a RDBMS and use SQL or SQL-like tools to access it. The combination is exceptionally good at efficiently storing complicated data sets while allowing for efficient information retrieval.
