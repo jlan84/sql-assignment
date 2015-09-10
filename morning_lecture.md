@@ -50,7 +50,7 @@ the scope of this document (and this class), but feel free to reference the
 resources at the bottom of this document if you're interested in learning more
 about the underlying theory of relational databases.*
 
-*Second Note: there are non-relational databases (NoSQL/MongoDB, etc.) that store data with different contraints and mechanisms for relationships between data subsets. We'll touch on these later in the course.*
+*Second Note: there are non-relational databases (NoSQL/MongoDB, etc.) that store data with different constraints and mechanisms for relationships between data subsets. We'll touch on these later in the course.*
 
 ## The RDBMS Data Model
 
@@ -293,7 +293,7 @@ You can learn more about database normalization from [Wikipedia][wiki-normal].
 
 ## SQL
 
-Structed Query Language (SQL) is the language used to query relational
+Structured Query Language (SQL) is the language used to query relational
 databases. All RDBMS use SQL and the syntax and keywords are for the most part
 the same across systems, though each system does have some of its own
 peculiarities.
@@ -367,7 +367,7 @@ INNER JOIN customers
 
 ![inner_join](https://cloud.githubusercontent.com/assets/1425450/9778836/9f669cae-572a-11e5-9c96-98b59a930b7d.png)
 
-Each visit has a `customer_id` that corresponds to the `id` column in the customeres
+Each visit has a `customer_id` that corresponds to the `id` column in the customers
 table. In SQL, you specify the correspondence in the `ON` segment of the `JOIN`
 clause. 
 
@@ -388,7 +388,7 @@ For example, the result may look like this:
 ```
 
 Note how some customers show up multiple times in the result set. This make
-sense given that some customers visted the site multiple times. You'll see later in
+sense given that some customers visited the site multiple times. You'll see later in
 this document a slightly more detailed look at how the RDBMS constructs a result
 set, including how it processes `JOIN`s.
 
@@ -493,7 +493,7 @@ instead of the left one.
 
 ![left_join](https://cloud.githubusercontent.com/assets/1425450/9778839/9f69bbd2-572a-11e5-9b13-7b2c2d7a04fb.png)
 
-![right_join](https://cloud.githubusercontent.com/assets/1425450/9778838/9f692884-572a-11e5-8da7-db3de4ddf80b.png)
+![right_join](https://cloud.githubusercontent.com/assets/1425450/9779109/19ace62e-572d-11e5-9868-17a9a7e3440f.png)
 
 ```sql
 
@@ -550,7 +550,7 @@ values for ones that don't have matches.
 * Aliasing
   * AS
 
-## Addtional Resources
+## Additional Resources
 
 * [PostgreSQL Documentation](http://www.postgresql.org/docs/9.2/interactive/index.html)
 * [SQL for Data Science](http://bensresearch.com/downloads/SQL.pdf)

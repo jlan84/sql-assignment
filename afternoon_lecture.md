@@ -7,6 +7,8 @@ Let's say for an online sales company you have the following tables:
 
 ### Inner Join
 
+![inner_join](https://cloud.githubusercontent.com/assets/1425450/9778836/9f669cae-572a-11e5-9c96-98b59a930b7d.png)
+
 If you want to get all the purchases but you want to include the customer name and the product name, you would use a stardard join (this is also called an *inner join*):
 
 ```sql
@@ -19,7 +21,6 @@ JOIN customers
 ```
 
 ### Outer Join
-
 
 Let's say there's a mistake in our database and some products are in the purchase table but not in the products table. With the above inner join query, they would just end up being excluded. An inner join only includes entries which are in both tables.
 
@@ -49,10 +50,12 @@ JOIN customers
     ON customers.id=purchases.customer_id;
 ```
 
+![left_join](https://cloud.githubusercontent.com/assets/1425450/9778839/9f69bbd2-572a-11e5-9b13-7b2c2d7a04fb.png)
+
 The LEFT means that everything from the first table will be included even if there isn't a matching entry in the second table. This will include those missing products, but their names will be `NULL`.
 
 We'll want to isolate those mistakes, we can use the same query as above, but only returns rows where
-something in the left table is NULL
+something in the left table isn't in the joined table.
 
 ```sql
 SELECT purchases.*
@@ -63,6 +66,8 @@ JOIN customers
     ON customers.id=purchases.customer_id
 WHERE products.name IS NULL;
 ```
+
+![left_join_null](https://cloud.githubusercontent.com/assets/1425450/9779111/1b8b0df4-572d-11e5-922d-55d7b2d36dd2.png)
 
 Even better, we can create the Purchases table with a FOREIGN KEY constraint to ensure that all customer and product ids are in their respective tables.  If you try the below, you will receive an error:
 
