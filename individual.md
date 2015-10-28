@@ -17,7 +17,7 @@ In this repo, there's a SQL dump of the data we'll be using today.
 
 1. If you are on your personal computer and haven't set up postgres yet, follow [these instructions](https://github.com/zipfian/welcome/blob/master/notes/postgres_setup.md)
 
-1. From the commandline run `psql` and then this command to create the database.
+1. From the command line run `psql` and then this command to create the database.
 
     ```sql
     CREATE DATABASE readychef;
@@ -158,7 +158,7 @@ Your output should look something like:
 
 9. There are also scenarios where you'd want to group by two columns. Modify the above query so that we get the aggregate values for each month and type. You'll need to add the month to both the select statement and the group by statement.
 
-    It'll be helfpul to *alias* the month column and give it a name like `month` so you don't have to call the `date_time` function again in the `GROUP BY` clause.
+    It'll be helpful to *alias* the month column and give it a name like `month` so you don't have to call the `date_time` function again in the `GROUP BY` clause.
 
     Your result should look like this:
 
@@ -176,7 +176,7 @@ _Extra_: To avoid having to do this as three separate queries you can do the cou
 Sorting
 ==========================================
 
-1. Let's start with a query which gets the average price for each type. It will be helfpul to alias the average price column as 'avg_price'.
+1. Let's start with a query which gets the average price for each type. It will be helpful to alias the average price column as 'avg_price'.
 
 2. To make it easier to read, sort the results by the `type` column. You can do this with an [ORDER BY](http://www.postgresqltutorial.com/postgresql-order-by/) clause.
 
