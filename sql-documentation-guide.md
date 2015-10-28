@@ -26,11 +26,11 @@ where from_item can be one of:
 
 ###Or:
 
-SQL documentations uses pipe ("|") to express "Or".  This suggests that there are several different expressions acceptible within this particular section of the query.
+SQL documentations uses pipe ("|") to express "Or".  This suggests that there are several different expressions acceptable within this particular section of the query.
 
 ###Expressions:
 
-When "expression" is used, it typically refers to columns, functions, conditional statements, artimethic operations, or even nested queries.
+When "expression" is used, it typically refers to columns, functions, conditional statements, arithmetic operations, or even nested queries.
 
 ###Differentiating optional vs non-optional statements:
 
@@ -39,11 +39,11 @@ SQL documentation are often flooded with optional statements, and you can usuall
 
 ###Multiple entries accepted:
 
-You can identify sections of the SQL query that allows for multiple entries through the "[, ...]" sections.  This often means you're allowed to place multiple expressions of similar purpose seperated by commas.  For example, a sequence of column names in the SELECT section.
+You can identify sections of the SQL query that allows for multiple entries through the "[, ...]" sections.  This often means you're allowed to place multiple expressions of similar purpose separated by commas.  For example, a sequence of column names in the SELECT section.
 
 ###One or the other:
 
-In sections of the SQL query where only one of a set of commands can be used in each individual query, you'll see brackets ("[" and "]") or curly braces ("{" and "}") seperated by pipe ("|").  For example you can only use either ASC or DESC with Order By.
+In sections of the SQL query where only one of a set of commands can be used in each individual query, you'll see brackets ("[" and "]") or curly braces ("{" and "}") separated by pipe ("|").  For example you can only use either ASC or DESC with Order By.
 
 ###Required command:
 
