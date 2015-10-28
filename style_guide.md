@@ -1,6 +1,6 @@
 ## SQL Style Guide
 
-There isn't total concensus about how to do style in SQL, but here's some general guidelines.
+There isn't total consensus about how to do style in SQL, but here's some general guidelines.
 
 1. Use all caps for SQL words.
 
