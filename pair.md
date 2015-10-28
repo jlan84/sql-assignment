@@ -24,7 +24,7 @@ Here are the steps to load it up:
     ```
     Use `\q` to quit `psql`.
 
-2. You can load the sql dump with this command on the commandline:
+2. You can load the sql dump with this command on the command line:
 
     ```shell
     psql -U postgres socialmedia < data/socialmedia.sql
