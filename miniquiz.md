@@ -6,7 +6,7 @@ Say you're giving a probability mass function in the form of a dictionary like t
 {'A': 0.5, 'B': 0.1, 'C': 0.4}
 ```
 
-I would like to get a random variable which is `A` 50% of the time, `B` 10% of the time and `C` 40% of the time. Write a function to do this. The only random function you can use is a uniform random distributino (use the `random` function from the `random` module).
+I would like to get a random variable which is `A` 50% of the time, `B` 10% of the time and `C` 40% of the time. Write a function to do this. The only random function you can use is a uniform random distribution (use the `random` function from the `random` module).
 
 In ipython, type `from random import random` to get the function and type `random?` to see what it does.
 
