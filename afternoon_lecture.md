@@ -9,7 +9,7 @@ Let's say for an online sales company you have the following tables:
 
 ![inner_join](https://cloud.githubusercontent.com/assets/1425450/9778836/9f669cae-572a-11e5-9c96-98b59a930b7d.png)
 
-If you want to get all the purchases but you want to include the customer name and the product name, you would use a stardard join (this is also called an *inner join*):
+If you want to get all the purchases but you want to include the customer name and the product name, you would use a standard join (this is also called an *inner join*):
 
 ```sql
 SELECT customers.name AS cust_name, products.name AS prod_name, date, quantity
