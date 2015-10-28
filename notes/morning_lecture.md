@@ -470,8 +470,10 @@ SQL does not perform operations "top to bottom".  Rather it executes statements 
 2. **WHERE**: the where clause is used to filter rows not satisfying search conditions
 3. **GROUP BY** + (**COUNT**, **SUM**, etc): rows are grouped using the columns in the group by clause and the aggregation functions are applied
 4. **HAVING**: like the **WHERE** clause, but can be applied after aggregation
-5. **SELECT**: the targeted list of columns are evaluated and returned
-6. **ORDER BY**: the resulting rows are sorted
+5. **ORDER BY**: the resulting rows are sorted
+6. **SELECT**: the targeted list of columns are evaluated and returned
+7. **DISTINCT**
+8. **LIMIT**
 
 ### `JOIN` types
 
