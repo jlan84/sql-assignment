@@ -230,7 +230,7 @@ Extra Credit (pt. 1)
 
 Subqueries
 ================================
-In a [subquery](http://www.postgresql.org/docs/8.1/static/functions-subquery.html), you have a select statement imbedded in another select statement.
+In a [subquery](http://www.postgresql.org/docs/8.1/static/functions-subquery.html), you have a select statement embedded in another select statement.
 
 1. Write a query to get meals that are above the average meal price.
 
