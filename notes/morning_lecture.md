@@ -40,17 +40,17 @@ constraints on data persistence).
 
 ## Relational Database Management Systems (RDBMS)
 
-Relational databases such as PosgreSQL, MySQL, and SQLite were built for just
-those purposes. They provide the ability to model relations in data and query
-the data and their relations efficiently. They also provide a bevy of guarantees
-to maintain data consistency and integrity.
+Relational databases such as PosgreSQL, MySQL, Oracle, Access, SQL Server 
+and SQLite were built for just those purposes. They provide the ability 
+to model relations in data and query the data and their relations efficiently. 
+They also provide a bevy of guarantees to maintain data consistency and integrity.
 
 *Note: The sorts of guarantees that these databases provide is beyond
 the scope of this document (and this class), but feel free to reference the
 resources at the bottom of this document if you're interested in learning more
 about the underlying theory of relational databases.*
 
-*Second Note: there are non-relational databases (NoSQL/MongoDB, etc.) that store data with different constraints and mechanisms for relationships between data subsets. We'll touch on these later in the course.*
+*Second Note: there are non-relational databases (NoSQL/MongoDB, etc.) that store data with different constraints and mechanisms for relationships between data subsets. Mongo is discussed in the other portion of this week.*
 
 ## The RDBMS Data Model
 
@@ -94,17 +94,19 @@ Here's an example of what this customers table looks like:
 ## Modeling Relations in RDBMS
 
 Part of the power of relational databases are their ability to model relations
-in data. The way they do so is through the use of **foreign keys**.
-A foreign key is a column that references some other entry in the database.
-That foreign entry could be in the same table or in some other table. Foreign
-keys are how relations are modeled in relational databases.
+in data. The way these relationships exist is through the use of **primary keys** 
+and **foreign keys**.  A primary key, as discussed above, is a column with all 
+unique rows within a table.  This values of the primary key column may show up
+in an alternative table one to many times, allowing for us to link or **join** these tables.
+This link provides us with the ability to create relationships and bring together 
+data from multiple tables.
 
 For example, let's say there is another table that contains data for each visit
 to our website. Each time a customer visits the site, a row is created and inserted
 into the `visits` table. We'd like to maintain some data that indicates which
-visit is associated with which customer (so that we could later, for example, find
+visit is associated with which customer (so that we could later find
 the customers who visited our site the most). Each visit then will have a `customer_id`
-that can connect it to a customer in the `customers` table.
+that can connect it to a customer (with the same `customer id` in the `customers` table.
 
 Here's the definition of the `visits` table:
 
@@ -199,9 +201,10 @@ LIMIT 1
 
 #### Many-to-many
 
-For a many-to-many relationship, create a table that contains two foreign keys,
+For a many-to-many relationship, we have three total tables (rather than two).
+We have two tables with primary keys, and a middle table with two foreign keys,
 one to each side of the relationship. This intermediate table is often referred
-to as a **JOIN table**.
+to as a **JOIN table**. 
 
 **Example 1: Customers and Products**
 
@@ -265,6 +268,9 @@ JOIN purchases
   ON customers.id = purchases.customer_id
 WHERE purchases.product_id=?
 ```
+For each of the above, you would not want to actually type `?`.  Rather, this is to 
+indicate that you would put the id (generally in quotes).  Notice, we do not use
+double equal signs for equality in SQL, which we do in many other languages.
 
 ## Schema Normalization
 
