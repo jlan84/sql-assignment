@@ -24,9 +24,10 @@ In this repo, there's a SQL dump of the data we'll be using today.
     \q
     ```
 
-1. Navigate to where you cloned this very repository and run the following command to import the database:
+1. Navigate to where you cloned this very repository and run the following commands to import the database:
 
     ```
+    cd data
     psql readychef < readychef.sql
     ```
 
@@ -54,10 +55,10 @@ Select statements
 ===================
 
 1. To get an understanding of the data, run a [SELECT](http://www.postgresqltutorial.com/postgresql-select/) statement on each table. Keep all the columns and limit the number of rows to 10.
-        ```sql
+        ```
         SELECT *
         FROM EVENTS
-        LIMIT 10
+        LIMIT 10;
         ```
 
 2. Write a `SELECT` statement that would get just the userids.
