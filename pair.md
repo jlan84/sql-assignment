@@ -91,3 +91,8 @@ Extra Credit
 9. Write a query which gets each user, the number of friends and the number of messages received. Recall that the friends table is not nice and that some pairs appear twice in both orders and some do not, so it might be nice to first create a cleaned up friends table.
 
 10. Break the users into 10 cohorts based on their number of friends and get the average number of messages for each group. It might be useful to save the result of the previous query in a table.
+
+Have Fun
+========================
+
+If you've made it hear you're probably feeling like a SQL expert. So why not challenge another pair to a game of SQL horse? Think up a value that can be computed from the table and see who can get the answer faster. The last one to finish gets a point, represented as a letter in the word "HORSE". The first one to reach 5 points "HORSE" loses. For a shorter or longer game try "PIG" or "QUERYOPTIMIZER" instead.
