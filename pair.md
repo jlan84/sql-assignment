@@ -95,4 +95,12 @@ Extra Credit
 Have Fun
 ========================
 
-If you've made it hear you're probably feeling like a SQL expert. So why not challenge another pair to a game of SQL horse? Think up a value that can be computed from the table and see who can get the answer faster. The last one to finish gets a point, represented as a letter in the word "HORSE". The first one to reach 5 points "HORSE" loses. For a shorter or longer game try "PIG" or "QUERYOPTIMIZER" instead.
+If you've made it this far you're probably feeling like a SQL expert. So why not challenge another pair to a game of SQL horse?
+* One pair describes a value to compute via a SQL query.
+* The other pair write a query to get the value(s), but doesn't share the query.
+* The pair who asked the questions computes an answer.
+* If the answers agree, then start over, with the other pair describing a query.
+* If the answer do not agree, then find out which query is correct. Any pair whose query is incorrect get's a letter from the word "HORSE".
+* The first team to reach "H-O-R-S-E" (five wrongs) loses!
+
+If HORSE takes too long, try a game of PIG. If it doesn't last long enough, try a game of QUERYOPTIMIZER.
