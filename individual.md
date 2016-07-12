@@ -13,7 +13,7 @@ Goals
 Loading the database
 ======================
 
-In this repo, there's a SQL dump of the data we'll be using today.
+In this repo, there's a SQL dump of the data we'll be using today. This data is typical of the type of data you might encounter in industry. It is [normalized](https://en.wikipedia.org/wiki/Database_normalization), which is a way of minimizing the disk space required to store the data, but which can sometimes require more effort to get data, since most queries will require information stored across multiple tables. As an example, the events table has ids for both users and meals, but in order to get the price of the meal, we have to look up that meal in the id table. This allows us to use _only_ the id to refer to the meal _anywhere_ it may appear, but does mean that to get meal details we almost always have to join. *As a data scientist, you will be writing a lot of SQL in order to get data from various tables into a single location where you can use it.*
 
 1. If you are on your personal computer and haven't set up postgres yet, follow [these instructions](https://github.com/zipfian/welcome/blob/master/notes/postgres_setup.md)
 
