@@ -100,7 +100,7 @@ If you've made it this far you're probably feeling like a SQL expert. So why not
 * The other pair write a query to get the value(s), but doesn't share the query.
 * The pair who asked the questions computes an answer.
 * If the answers agree, then start over, with the other pair describing a query.
-* If the answer do not agree, then find out which query is correct. Any pair whose query is incorrect get's a letter from the word "HORSE".
+* If the answer do not agree, then find out which query is correct. Any pair whose query is incorrect gets a letter from the word "HORSE".
 * The first team to reach "H-O-R-S-E" (five wrongs) loses!
 
 If HORSE takes too long, try a game of PIG. If it doesn't last long enough, try a game of QUERYOPTIMIZER.
