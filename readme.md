@@ -23,7 +23,7 @@ While Postgres adheres to the ANSI 92 SQL standard, there are a few extra functi
 
 ## Assignment
 
-The exercise for today is contained in the [individual.md](individual.md) and [pair.md](pair.md) files. You'll be using the interactive SQL shell from the console for most of your work. Once you have a satisfactory answer to a question, remember to copy your SQL query to a text file for safe keeping. You'll submit all your finished queries at the end of the day as a pull request. Remember: _Commit Early, Commit Often_
+In the [exercise for today](assignment.md), you'll be using the interactive SQL shell from the console for most of your work. Once you have a satisfactory answer to a question, remember to copy your SQL query to a text file for safe keeping. You'll submit all your finished queries at the end of the day as a pull request. Remember: _Commit Early, Commit Often_
 
 ## Extra Credit:
 
