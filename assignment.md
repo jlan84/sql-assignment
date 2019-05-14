@@ -15,28 +15,27 @@ Loading the database
 
 In this repo, there's a SQL dump of the data we'll be using today. This data is typical of the type of data you might encounter in industry. It is [normalized](https://en.wikipedia.org/wiki/Database_normalization), which is a way of minimizing the disk space required to store the data, but which can sometimes require more effort to get data, since most queries will require information stored across multiple tables. As an example, the events table has ids for both users and meals, but in order to get the price of the meal, we have to look up that meal in the id table. This allows us to use _only_ the id to refer to the meal _anywhere_ it may appear, but does mean that to get meal details we almost always have to join. *As a data scientist, you will be writing a lot of SQL in order to get data from various tables into a single location where you can use it.*
 
-1. If you are on your personal computer and haven't set up postgres yet, follow [these instructions](https://github.com/gschool/dsi-welcome/blob/master/notes/postgres_setup.md)
 
-1. From the command line run `psql` and then this command to create the database.
+1. From the command line run the line below to interact with our postgres docker container:
+    $ docker exec -it pgserv bash
 
-    ```sql
-    CREATE DATABASE readychef;
-    \q
-    ```
+
 
 1. Navigate to where you cloned this very repository and run the following commands to import the database:
-
     ```
-    cd data
-    psql readychef < readychef.sql
+    # cd /home/data/path/to/todays_repo/
+    # psql -U postgres
+    =# CREATE DATABASE readychef;
+    =# \q
     ```
 
-    You should see a bunch of SQL commands flow through the terminal. 
+    You should see a bunch of SQL commands flow through the terminal.
 
 1. To enter the interactive Postgres prompt, now enter the following to be connected or your database.
 
     ```
-    psql readychef
+    # psql -U postgres readychef < readychef.sql;
+    # psql -U postgres new_database
     ```
 
 Now we are in a command line client. This is how we will explore the database to gain an understanding of what data we are playing with.
@@ -70,7 +69,7 @@ Select statements
 Where Clauses / Filtering
 ========================================
 
-Now that we have the lay of the land, we're interested in the subset of users that came from Facebook (FB). If you're unfamiliar with SQL syntax, the [WHERE](http://www.postgresqltutorial.com/postgresql-where/) clause can be used to add a conditional to `SELECT` statements. This has the effect of only returning rows where the conditional evaluates to `TRUE`. 
+Now that we have the lay of the land, we're interested in the subset of users that came from Facebook (FB). If you're unfamiliar with SQL syntax, the [WHERE](http://www.postgresqltutorial.com/postgresql-where/) clause can be used to add a conditional to `SELECT` statements. This has the effect of only returning rows where the conditional evaluates to `TRUE`.
 
 *Note: Make sure you put string literals in single quotes, like `campaign_id='TW'`.*
 
@@ -171,7 +170,7 @@ Your output should look something like:
     ...
     ```
 
-10. From the `events` table, write a query that gets the total number of buys, likes and shares for each meal id. 
+10. From the `events` table, write a query that gets the total number of buys, likes and shares for each meal id.
 _Extra_: To avoid having to do this as three separate queries you can do the count of the number of buys like this: `SUM(CASE WHEN event='bought' THEN 1 ELSE 0 END)`.
 
 Sorting
