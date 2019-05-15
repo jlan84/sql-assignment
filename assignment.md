@@ -17,13 +17,15 @@ In this repo, there's a SQL dump of the data we'll be using today. This data is 
 
 
 1. From the command line run the line below to interact with our postgres docker container:
+    ```
+    $ docker start pgserv
     $ docker exec -it pgserv bash
-
+    ```
 
 
 1. Navigate to where you cloned this very repository and run the following commands to import the database:
     ```
-    # cd /home/data/path/to/todays_repo/
+    # cd /home/data/path/to/todays_repo/data
     # psql -U postgres
     =# CREATE DATABASE readychef;
     =# \q
@@ -35,7 +37,7 @@ In this repo, there's a SQL dump of the data we'll be using today. This data is 
 
     ```
     # psql -U postgres readychef < readychef.sql;
-    # psql -U postgres new_database
+    # psql -U postgres readychef
     ```
 
 Now we are in a command line client. This is how we will explore the database to gain an understanding of what data we are playing with.
