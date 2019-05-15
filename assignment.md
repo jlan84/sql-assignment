@@ -31,7 +31,6 @@ In this repo, there's a SQL dump of the data we'll be using today. This data is 
     =# \q
     ```
 
-    You should see a bunch of SQL commands flow through the terminal.
 
 1. To enter the interactive Postgres prompt, now enter the following to be connected or your database.
 
